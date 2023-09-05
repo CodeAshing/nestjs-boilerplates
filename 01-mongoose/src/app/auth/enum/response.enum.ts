@@ -1,0 +1,17 @@
+export enum responseEnum {
+  LOGOUT = 'You are logout',
+  EMPLOYEE_WEB_LOGIN = 'Employee login successfully',
+  GENERATE_EMPLOYEE_OTP = 'OTP generated successfully',
+  NOT_AUTHORIZED = 'You are not authorized to perform this action',
+  UNABLE_TO_AUTHORIZED = 'Authorization failed!',
+  EMPLOYEE_NOT_FOUND = 'Employee not found',
+  CLIENT_NOT_FOUND = 'Client not found',
+  OTP_VERIFICATION = 'OTP verified successfully',
+  OTP_IS_NOT_GENERATED = 'Please generate employee-OTP first',
+  OTP_IS_NOT_VALID = 'OTP is not valid',
+  EMPLOYEE_IS_NOT_ACTIVE = 'Employee is not active',
+  SESSION_EXPIRED = 'Session expired',
+  INVALID_CREDENTIAL = 'Invalid credential',
+  TOKEN_REFRESH_SUCCESSFULLY = 'Token refresh successfully',
+  TOKEN_REFRESH_FAILED = 'Token refresh failed',
+}

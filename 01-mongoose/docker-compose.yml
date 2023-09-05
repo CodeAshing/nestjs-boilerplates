@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    container_name: 01-mongoose
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=dev
+      - JWT_SECRET=51654dc51e229c0c95200ba8
+      - REFRESH_SECRET=51654dc51e229c0c95200ba8
+      - COOKIE_SECRET=asdijfn23oq8pu54rqv
+      - TRANSACTION_SECRET=k9i33888js8jj83j7832424
+      - LOG_LEVEL=info
+      - PORT=3001
+
+    command: npm run dev

@@ -1,0 +1,7 @@
+export enum RoleEnum {
+  EMPLOYEE = 'EMP',
+  CLIENT = 'CLIENT',
+  REGIONAL_HUMAN_RESOURSE = 'RHR',
+  REGIONAL_DIRECTOR = 'RD',
+  HUMAN_RESOURSE = 'HR',
+}

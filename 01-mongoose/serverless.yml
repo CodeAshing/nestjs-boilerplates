@@ -1,0 +1,26 @@
+service: ecosystem-v1
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  lambdaHashingVersion: 20201221
+  runtime: nodejs14.x
+  stage: prod
+  region: me-central-1
+
+functions:
+  candidateSubmission:
+    handler: src/handler.server
+    memorySize: 128
+    timeout: 100
+    description: 01-mongoose backend
+    events:
+      - http: # this is an API Gateway HTTP event trigger
+          path: /
+          method: ANY
+          cors: true
+      - http: # all routes get proxied to the Express router
+          path: /{proxy+}
+          method: ANY
+          cors: true
