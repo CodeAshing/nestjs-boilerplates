@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG: ConfigData = {
   refreshExpiresDurationInYears: 1,
   clientOtpDurationInMinutes: 30,
   clientTransactionDurationInHours: 12,
-  localDatabaseURI: '',
+  databaseURI: '',
   tokenExpiresDurationInMinutesForEmployee: 60,
   tokenExpiresDurationInMinutesForClient: 60,
 };

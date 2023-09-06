@@ -20,7 +20,7 @@ export interface ConfigData {
 
   /** Database connection details. */
 
-  localDatabaseURI: string;
+  databaseURI: string;
 
   //* Duration of the token and cookie in  minutes
   tokenExpiresDurationInMinutesForEmployee: number;

@@ -1,16 +1,11 @@
-import { IsString } from 'class-validator';
 import { RoleEnum } from '../common/enum';
 import {
   CACHE_MANAGER,
   ForbiddenException,
   Inject,
   Injectable,
-  InternalServerErrorException,
   Logger,
-  NotAcceptableException,
-  NotFoundException,
   UnauthorizedException,
-  BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -26,16 +21,11 @@ import { IClientToken } from './interface';
 
 import { EmployeeWebLoginDTO } from './dto';
 import { Cache } from 'cache-manager';
-import { Employers, EmployersDocument, RoleDocument, Role } from '../schema';
+import { User, UserDocument } from '../modules/user/schema';
 
 import { Helper } from 'src/app/common/helper/utilities.helper';
 import { responseEnum } from './enum';
-import {
-  Auth,
-  AuthDocument,
-  Client,
-  ClientDocument,
-} from '../modules/user/schema';
+
 const helper = new Helper();
 @Injectable()
 export class AuthService {
@@ -48,17 +38,8 @@ export class AuthService {
 
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
 
-    @InjectModel(Client.name, connectionEnum.ERP)
-    private readonly clientModel: Model<ClientDocument>,
-
-    @InjectModel(Employers.name, connectionEnum.ERP)
-    private readonly employeeModel: Model<EmployersDocument>,
-
-    @InjectModel(Auth.name, connectionEnum.ERP)
-    private readonly authModel: Model<AuthDocument>,
-
-    @InjectModel(Role.name, connectionEnum.ERP)
-    private readonly roleModel: Model<RoleDocument>,
+    @InjectModel(User.name, connectionEnum.ERP)
+    private readonly userModel: Model<UserDocument>,
   ) { }
 
   async employeeWebLogin(
@@ -72,7 +53,7 @@ export class AuthService {
     // const auth = await this.authModel.findOne({
     //   empCode: username,
     // });
-    // const employeeData = await this.employeeModel
+    // const employeeData = await this.userModel
     //   .findOne({
     //     empCode: username,
     //   })
@@ -252,10 +233,10 @@ export class AuthService {
   async validateEmployeeToken(
     token: string,
     payload: IClientToken,
-  ): Promise<Employers> {
+  ): Promise<User> {
     this.logger.log('Hits validateEmployeeToken()');
 
-    return await this.employeeModel
+    return await this.userModel
       .findOne({
         empCode: payload.employeeCode,
       })
@@ -263,9 +244,6 @@ export class AuthService {
       .then(async (employerData) => {
         if (!employerData)
           throw new ForbiddenException(responseEnum.NOT_AUTHORIZED);
-        if (!employerData.active)
-          throw new UnauthorizedException(responseEnum.EMPLOYEE_IS_NOT_ACTIVE);
-
         const cacheUser = await this.cacheManager.get<{ name: string }>(
           payload.employeeCode,
         );
@@ -288,7 +266,7 @@ export class AuthService {
   ): Promise<any> {
     this.logger.log('Hits validateClientToken()');
 
-    return this.clientModel
+    return this.userModel
       .findOne({ CNIC: payload.employeeCNIC })
       .then(async (clientData) => {
         if (!clientData) throw new UnauthorizedException('Invalid token');

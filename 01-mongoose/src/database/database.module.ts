@@ -29,7 +29,7 @@ export class DatabaseModule {
           useFactory: (configService: ConfigService) =>
             DatabaseModule.getNoSqlConnectionOptions(
               configService,
-              'localDatabaseURI',
+              'databaseURI',
             ),
           inject: [ConfigService],
           connectionName: connectionEnum.ERP,

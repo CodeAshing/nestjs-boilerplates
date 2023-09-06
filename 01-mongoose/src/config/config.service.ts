@@ -31,8 +31,7 @@ export class ConfigService {
       cookieSecret: env.COOKIE_SECRET || DEFAULT_CONFIG.cookieSecret,
       transactionSecret:
         env.TRANSACTION_SECRET || DEFAULT_CONFIG.transactionSecret,
-      localDatabaseURI:
-        env.LOCAL_DATABASE_URI || DEFAULT_CONFIG.localDatabaseURI,
+      databaseURI: env.DATABASE_URI || DEFAULT_CONFIG.databaseURI,
       tokenExpiresDurationInMinutesForEmployee:
         Number(env.TOKEN_EXPIRES_DURATION_IN_MINUTES) ||
         DEFAULT_CONFIG.tokenExpiresDurationInMinutesForEmployee,

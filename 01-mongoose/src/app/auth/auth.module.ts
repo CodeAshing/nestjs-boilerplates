@@ -10,17 +10,7 @@ import { connectionEnum } from 'src/app/common/enum';
 
 import { Helper } from 'src/app/common/helper/utilities.helper';
 import { JwtModule } from '@nestjs/jwt';
-import {
-  SummarySchema,
-  Employers,
-  EmployersSchema,
-  Summary,
-  Administration,
-  AdministrationSchema,
-  RoleSchema,
-  Role,
-} from '../schema';
-import { Auth, AuthSchema, Client, ClientSchema } from '../modules/user/schema';
+import { User, UserSchema } from '../modules/user/schema';
 
 @Module({
   imports: [
@@ -28,10 +18,7 @@ import { Auth, AuthSchema, Client, ClientSchema } from '../modules/user/schema';
     JwtModule.register({}),
     MongooseModule.forFeature(
       [
-        { name: Client.name, schema: ClientSchema },
-        { name: Auth.name, schema: AuthSchema },
-        { name: Employers.name, schema: EmployersSchema },
-        { name: Role.name, schema: RoleSchema },
+        { name: User.name, schema: UserSchema },
       ],
       connectionEnum.ERP,
     ),

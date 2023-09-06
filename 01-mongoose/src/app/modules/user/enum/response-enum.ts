@@ -10,6 +10,6 @@ export enum responseEnum {
   PERMISSIONS_NOT_FOUND = 'Permissions not found.',
   CLIENT_NOT_FOUND = 'Client(s) not found.',
   DEALER_NOT_FOUND = 'Dealer(s) not found.',
-  PROFILE_FOUND = 'PROFILE fetched successfully.',
-  PROFILE_NOT_FOUND = 'Unable to fetch PROFILE.',
+  USER_FOUND = 'USER fetched successfully.',
+  USER_NOT_FOUND = 'Unable to fetch USER.',
 }
