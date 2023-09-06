@@ -10,7 +10,7 @@ import { connectionEnum } from 'src/app/common/enum';
 
 import { User, UserDocument } from 'src/app/modules/user/schema';
 import { responseEnum } from './enum';
-import { CreateClientDTO, CreateNonEmployeeDTO, UpdateClientDTO } from './dto';
+import { CreateClientDTO,  UpdateClientDTO } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -34,7 +34,7 @@ export class UsersService {
     return { client: client._id };
   }
 
-  async deleteUser(body: CreateNonEmployeeDTO): Promise<any> {
+  async deleteUser(body: any): Promise<any> {
     const exists = await this.userModel
       .exists({ CNIC: body.CNIC })
       .catch((e) => {
@@ -51,7 +51,7 @@ export class UsersService {
 
   async updateUser(body: UpdateClientDTO): Promise<any> {
     const exists = await this.userModel.exists({ CNIC: body.CNIC });
-    if (!exists) throw new NotFoundException(responseEnum.CLIENT_NOT_FOUND);
+    if (!exists) throw new NotFoundException(responseEnum.USER_NOT_FOUND);
 
     const client = await this.userModel
       .findOneAndReplace({ CNIC: body.CNIC }, body, { upsert: false })
@@ -65,9 +65,6 @@ export class UsersService {
 
   async getAllUsers(): Promise<any> {
     const dealers = await this.userModel.find();
-
-    if (!dealers.length)
-      throw new NotFoundException(responseEnum.DEALER_NOT_FOUND);
 
     return dealers;
   }

@@ -18,11 +18,7 @@ import { responseEnum } from './enum';
 import { RoleEnum } from 'src/app/common/enum';
 import {
   CreateClientDTO,
-  CreateNonEmployeeDTO,
-  GetClientWithCNIC,
-  GetDealerWithCnic,
   UpdateClientDTO,
-  UpdateDealerDTO,
 } from './dto';
 @Controller('user')
 @ApiTags('user')
@@ -47,7 +43,6 @@ export class UsersController {
   }
 
   @Post()
-  @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
   @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.USER_CREATED)
   @ApiResponse({
@@ -60,7 +55,6 @@ export class UsersController {
   }
 
   @Put()
-  @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
   @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.USER_UPDATED)
   @ApiResponse({
@@ -69,7 +63,7 @@ export class UsersController {
   })
   @ApiResponse({
     status: 404,
-    description: responseEnum.CLIENT_NOT_FOUND,
+    description: responseEnum.USER_NOT_FOUND,
   })
   @ApiResponse({
     status: 500,
@@ -89,7 +83,7 @@ export class UsersController {
     description: responseEnum.USER_CREATED,
   })
   @HttpCode(201)
-  async deleteUser(@Body() body: CreateNonEmployeeDTO): Promise<any> {
+  async deleteUser(@Body() body: any): Promise<any> {
     return await this.usersService.deleteUser(body);
   }
 
@@ -100,10 +94,6 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: responseEnum.GET_ALL_USERS,
-  })
-  @ApiResponse({
-    status: 500,
-    description: responseEnum.DEALER_NOT_FOUND,
   })
   @HttpCode(200)
   async getAllUsers(): Promise<any> {

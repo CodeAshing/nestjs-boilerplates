@@ -3,7 +3,6 @@ import {
   CacheModule,
   Module,
 } from '@nestjs/common';
-// import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -12,10 +11,9 @@ dotenv.config();
 
 
 //--- modules ---
-import { TypeModule, UsersModule } from './app/modules';
+import { TodoModule, UsersModule } from './app/modules';
 
 import { AuthModule } from './app/auth/auth.module';
-import { connectionEnum } from 'src/app/common/enum';
 
 import { ConfigModule } from './config/config.module';
 import { LoggerModule } from './logger/logger.module';
@@ -35,7 +33,7 @@ import { LoggerModule } from './logger/logger.module';
     // --- Modules ---
     AuthModule,
     UsersModule,
-    TypeModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

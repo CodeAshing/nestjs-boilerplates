@@ -6,7 +6,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsArrayOfObjects } from 'src/app/common/decorator';
-import { NextToKinDTO } from '.';
 
 export class UpdateClientDTO {
   @IsNotEmpty({ message: 'Please provide valid CNIC' })
@@ -61,10 +60,4 @@ export class UpdateClientDTO {
   @ApiProperty({ example: 'Sindh' })
   state: string;
 
-  @IsOptional({ message: 'Please provide valid NextToKin' })
-  @Type(() => NextToKinDTO)
-  @ValidateNested()
-  @IsArrayOfObjects()
-  @ApiProperty({ type: [NextToKinDTO] })
-  nextToKin: NextToKinDTO[];
 }

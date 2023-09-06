@@ -7,7 +7,6 @@ import { connectionEnum } from 'src/app/common/enum';
 import { ResponseObject } from 'src/app/common/helper/response-object.helper';
 
 import { Log, LogSchema } from 'src/app/schema';
-import { Type, TypeSchema } from '../type/schema';
 import { User, UserSchema } from './schema';
 
 @Module({
@@ -16,7 +15,6 @@ import { User, UserSchema } from './schema';
       [
         { name: User.name, schema: UserSchema },
         { name: Log.name, schema: LogSchema },
-        { name: Type.name, schema: TypeSchema },
       ],
       connectionEnum.ERP,
     ),
@@ -24,4 +22,4 @@ import { User, UserSchema } from './schema';
   controllers: [UsersController],
   providers: [UsersService, ResponseObject],
 })
-export class UsersModule {}
+export class UsersModule { }
