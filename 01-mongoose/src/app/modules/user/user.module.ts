@@ -4,8 +4,6 @@ import { UsersService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { connectionEnum } from 'src/app/common/enum';
-import { ResponseObject } from 'src/app/common/helper/response-object.helper';
-
 import { Log, LogSchema } from 'src/app/schema';
 import { User, UserSchema } from './schema';
 
@@ -20,6 +18,6 @@ import { User, UserSchema } from './schema';
     ),
   ],
   controllers: [UsersController],
-  providers: [UsersService, ResponseObject],
+  providers: [UsersService],
 })
 export class UsersModule { }

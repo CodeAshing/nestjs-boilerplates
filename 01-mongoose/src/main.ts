@@ -7,12 +7,8 @@ import { HttpExceptionFilter } from './app/common/filter/exception.filter';
 import { createDocument } from './swagger/swagger';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
-import * as csurf from 'csurf';
 import helmet from 'helmet';
 import * as cookieParser from 'cookie-parser';
-
-import { SocketIoAdapter } from './socket-io.adapter';
-
 
 // import * as admin from 'firebase-admin';
 // const serviceAccount = require('./firebase-adminSDK.json');
@@ -30,9 +26,6 @@ const logger = new Logger('main');
     bufferLogs: true,
     cors: true,
   });
-
-  //set csurf to protect from csrf attacks
-  // app.use(csurf());
 
   // app.enableCors({
   //   allowedHeaders:
@@ -96,8 +89,6 @@ const logger = new Logger('main');
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('/v1/swagger', app, document);
-
-  app.useWebSocketAdapter(new SocketIoAdapter(app));
 
   app.use(cookieParser(configService.get().cookieSecret));
   // await app.listen(process.env.PORT || configService.get().port);

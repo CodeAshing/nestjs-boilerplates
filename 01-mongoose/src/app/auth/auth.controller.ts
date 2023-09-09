@@ -8,7 +8,6 @@ import {
   HttpCode,
   UseGuards,
 } from '@nestjs/common';
-// import { FileInterceptor } from '@nestjs/platform-express';
 import { Response, Request } from 'express';
 import { GetUser, ResponseMessage } from '../common/decorator';
 import { AuthService } from './auth.service';

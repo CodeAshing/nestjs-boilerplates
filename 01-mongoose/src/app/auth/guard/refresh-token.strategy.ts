@@ -4,8 +4,8 @@ import {
   Inject,
   Injectable,
   UnauthorizedException,
-  CACHE_MANAGER,
 } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from 'src/config/config.service';
@@ -43,10 +43,9 @@ export class RefreshTokenStrategy extends PassportStrategy(
       const cacheUserRecord = await this.cacheManager.get<{ name: string }>(
         key,
       );
-
       let cacheData: any;
       if (cacheUserRecord) {
-        cacheData = JSON.parse(cacheUserRecord);
+        cacheData = cacheUserRecord;
         cacheData[String(key)].push(value);
       } else {
         cacheData = {
@@ -54,9 +53,9 @@ export class RefreshTokenStrategy extends PassportStrategy(
         };
       }
       // set cache data
-      await this.cacheManager.set(key, JSON.stringify(cacheData), {
-        ttl: this.configService.get().cacheExpiresDurationInMinutes * 60,
-      });
+      await this.cacheManager.set(key, JSON.stringify(cacheData),
+        this.configService.get().cacheExpiresDurationInMinutes * 60,
+      );
     };
 
     switch (payload.user) {

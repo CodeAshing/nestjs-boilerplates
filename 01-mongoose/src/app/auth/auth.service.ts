@@ -1,12 +1,13 @@
 import { RoleEnum } from '../common/enum';
 import {
-  CACHE_MANAGER,
   ForbiddenException,
   Inject,
   Injectable,
   Logger,
   UnauthorizedException,
 } from '@nestjs/common';
+
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import * as moment from 'moment-timezone';
@@ -161,7 +162,7 @@ export class AuthService {
 
     let cacheData: any;
     if (cacheUserRecord) {
-      cacheData = JSON.parse(cacheUserRecord);
+      cacheData = cacheUserRecord;
       cacheData[String(empCode)].push(authToken);
     } else {
       cacheData = {
@@ -169,9 +170,8 @@ export class AuthService {
       };
     }
     // set cache data
-    await this.cacheManager.set(empCode, JSON.stringify(cacheData), {
-      ttl: this.config.get().cacheExpiresDurationInMinutes * 60,
-    });
+    await this.cacheManager.set(empCode, JSON.stringify(cacheData), this.config.get().cacheExpiresDurationInMinutes * 60,
+    );
 
     //we are not using cookies for now
     // Clear cookie
@@ -249,11 +249,11 @@ export class AuthService {
         );
 
         if (cacheUser) {
-          let parsedUserData = JSON.parse(cacheUser);
+          let parsedUserData = cacheUser;
           parsedUserData = parsedUserData[payload.employeeCode];
 
-          if (parsedUserData?.includes(token))
-            throw new UnauthorizedException(responseEnum.SESSION_EXPIRED);
+          // if (parsedUserData?.includes(token))
+          //   throw new UnauthorizedException(responseEnum.SESSION_EXPIRED);
         }
 
         return employerData;
@@ -274,10 +274,10 @@ export class AuthService {
           payload.employeeCNIC,
         );
         if (redisUser) {
-          let parsedUserData = JSON.parse(redisUser);
+          let parsedUserData = redisUser
           parsedUserData = parsedUserData[payload.employeeCNIC];
-          if (parsedUserData?.includes(token))
-            throw new UnauthorizedException('Session expired');
+          // if (parsedUserData?.includes(token))
+          //   throw new UnauthorizedException('Session expired');
         }
         return clientData;
       });
