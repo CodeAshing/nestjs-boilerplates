@@ -92,42 +92,49 @@ Listed below are the currently available project boilerplates with their respect
 
 <details>
 <summary>02-nuxtjs (Coming Soon)</summary>
+
 - **Description**: An example boilerplate for integrating Nuxt.js into a Nest application (Coming Soon).
 - **Features**: Nuxt.js integration and relevant code examples (Coming Soon).
 </details>
 
 <details>
 <summary>03-sequelize (Coming Soon)</summary>
+
 - **Description**: Provides a boilerplate for Nest projects using Sequelize, an ORM (Object-Relational Mapping) library for SQL-based databases (Coming Soon).
 - **Features**: Includes SequelizeModule and relevant code for common database operations (Coming Soon).
 </details>
 
 <details>
 <summary>04-mongodb-typeorm (Coming Soon)</summary>
+
 - **Description**: A boilerplate with Nest and MongoDB integration using TypeORM, an ORM with TypeScript support (Coming Soon).
 - **Features**: TypeORM entities, migrations, repositories, and integration testing setup (Coming Soon).
 </details>
 
 <details>
 <summary>05-webpack (Coming Soon)</summary>
+
 - **Description**: Boilerplate showcasing the integration of Nest with Webpack, a popular bundling tool (Coming Soon).
 - **Features**: Webpack setup and configuration for building frontend assets (Coming Soon).
 </details>
 
 <details>
 <summary>06-babel-example (Coming Soon)</summary>
+
 - **Description**: An example boilerplate to demonstrate Nest application setup using Babel, a JavaScript compiler (Coming Soon).
 - **Features**: Babel configuration, decorators usage, and Transpile-Time Metadata support (Coming Soon).
 </details>
 
 <details>
 <summary>07-fastify (Coming Soon)</summary>
+
 - **Description**: A Nest boilerplate with Fastify HTTP server (Coming Soon).
 - **Features**: Fastify integration with Nest and relevant code examples (Coming Soon).
 </details>
 
 <details>
 <summary>08-swagger (Coming Soon)</summary>
+
 - **Description**: Provides a boilerplate with Swagger OpenAPI documentation for your Nest application (Coming Soon).
 - **Features**: Integration with Swagger, automated API documentation for easy development and testing (Coming Soon).
 </details>
@@ -140,114 +147,133 @@ Listed below are the currently available project boilerplates with their respect
 
 <details>
 <summary>10-graphql-federation-schema-first (Coming Soon)</summary>
+
 - **Description**: Demonstration of GraphQL schema-first approach for implementing the GraphQL Federation protocol in Nest (Coming Soon).
 - **Features**: Federated GraphQL setup and relevant code (Coming Soon).
 </details>
 
 <details>
 <summary>11-graphql-mercurius (Coming Soon)</summary>
+
 - **Description**: Project template illustrating how to integrate the Mercurius GraphQL framework into your Nest application (Coming Soon).
 - **Features**: Mercurius integration, queries, mutations, subscriptions, and examples showcasing similar functionality as the Apollo Server integration (Coming Soon).
 </details>
 
 <details>
 <summary>12-mvc (Coming Soon)</summary>
+
 - **Description**: An MVC (Model-View-Controller) structured Nest boilerplate (Coming Soon).
 - **Features**: Fit with a project structure reflecting an MVC pattern (Coming Soon).
 </details>
 
 <details>
 <summary>13-gateways-ws (Coming Soon)</summary>
+
 - **Description**: Boilerplate with WebSocket Gateway implementation using Nest (Coming Soon).
 - **Features**: WebSocket Gateway, bidirectional communication, and relevant code (Coming Soon).
 </details>
 
 <details>
 <summary>14-mvc-fastify (Coming Soon)</summary>
+
 - **Description**: Another MVC-based Nest boilerplate that incorporates Fastify for handling HTTP requests (Coming Soon).
 - **Features**: Project structure, controller, service, and module implementation, routing example, Fastify integration example (Coming Soon).
 </details>
 
 <details>
 <summary>15-context (Coming Soon)</summary>
+
 - **Description**: A Nest boilerplate demonstrating the use cases of custom request context creation (Coming Soon).
 - **Features**: Custom request scope, injector chaining, and async context usage examples (Coming Soon).
 </details>
 
 <details>
 <summary>16-auth-jwt (Coming Soon)</summary>
+
 - **Description**: A boilerplate showcasing JWT (JSON Web Token) authentication implementation in a Nest application (Coming Soon).
 - **Features**: User registration, token generation, authentication middleware setup, and example usage (Coming Soon).
 </details>
 
 <details>
 <summary>17-cache (Coming Soon)</summary>
+
 - **Description**: Provides a boilerplate showcasing how to integrate and use cache mechanisms in Nest projects (Coming Soon).
 - **Features**: Memory-based caching example using the CacheManager package and built-in decorators (Coming Soon).
 </details>
 
 <details>
 <summary>18-serializer (Coming Soon)</summary>
+
 - **Description**: Nest project template demonstrating serialization and serialization tuning techniques (Coming Soon).
 - **Features**: Serialize entity relationships, transform responses, apply groups for data transformation, including customized JSON output examples (Coming Soon).
 </details>
 
 <details>
 <summary>19-graphql-prisma (Coming Soon)</summary>
+
 - **Description**: Boilerplate project demonstrating how to integrate Prisma2 with Nest applications for advanced data manipulation using GraphQL (Coming Soon).
 - **Features**: Prisma2 setup, GraphQL queries, migrations, batching, nested writes, and more (Coming Soon).
 </details>
 
 <details>
 <summary>20-graphql-code-first (Coming Soon)</summary>
+
 - **Description**: An example boilerplate for building Nest applications using a Code-First approach with GraphQL (Coming Soon).
 - **Features**: TypeGraphQL integration, schema-first resolvers, example queries and mutations, authentication middleware (Coming Soon).
 </details>
 
 <details>
 <summary>21-serve-static (Coming Soon)</summary>
+
 - **Description**: Nest boilerplate to serve static HTML files using built-in Express module (Coming Soon).
 - **Features**: Serve static files configuration, example implementation (Coming Soon).
 </details>
 
 <details>
 <summary>22-dynamic-modules (Coming Soon)</summary>
+
 - **Description**: Boilerplate showcasing how to dynamically load modules in Nest applications (Coming Soon).
 - **Features**: Dynamic module usage example, on-demand module registration, configuration (Coming Soon).
 </details>
 
 <details>
 <summary>23-queues (Coming Soon)</summary>
+
 - **Description**: Nest boilerplate with an example of using queues (Redis, Bull, Nest) for processing data asynchronously (Coming Soon).
 - **Features**: Queue module and worker setup (Coming Soon).
 </details>
 
 <details>
 <summary>24-scheduling (Coming Soon)</summary>
+
 - **Description**: Provides a boilerplate for scheduling periodic tasks in a Nest application (Coming Soon).
 - **Features**: Setup and configuration of scheduled tasks using Nest scheduler (Coming Soon).
 </details>
 
 <details>
 <summary>25-sse (Coming Soon)</summary>
+
 - **Description**: Boilerplate providing an example of using Server-Sent Events (SSE) in a Nest application (Coming Soon).
 - **Features**: SSE gateway implementation, sending real-time events to the client (Coming Soon).
 </details>
 
 <details>
 <summary>26-file-upload (Coming Soon)</summary>
+
 - **Description**: A Nest boilerplate showcasing file upload implementation and management using Multer middleware (Coming Soon).
 - **Features**: File upload and management, example code (Coming Soon).
 </details>
 
 <details>
 <summary>27-event-emitter (Coming Soon)</summary>
+
 - **Description**: Provides an event emitter API example within a Nest application (Coming Soon).
 - **Features**: Broadcasting events using EventGateway (RabbitMQ, Websockets), and relevant code (Coming Soon).
 </details>
 
 <details>
 <summary>28-graphql-federation-code-first (Coming Soon)</summary>
+
 - **Description**: Boilerplate demonstrating how to implement a Code-First approach with cases using the GraphQL Federation protocol (Coming Soon).
 - **Features**: Federated schema composition, example queries and mutations (Coming Soon).
 </details>
