@@ -7,6 +7,8 @@ export const DEFAULT_CONFIG: ConfigData = {
   jwtSecret: 'random string',
   refreshSecret: 'random string',
   cookieSecret: 'random string',
+  clientDomain: 'example.com',
+  cookieSecretExpiresDurationInMinutes: 60,
   transactionSecret: 'random string',
   cacheExpiresDurationInMinutes: 60,
   refreshExpiresDurationInYears: 1,

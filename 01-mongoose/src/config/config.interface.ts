@@ -15,7 +15,9 @@ export interface ConfigData {
 
   jwtSecret: string;
   refreshSecret: string;
-  cookieSecret: string;
+  cookieSecret: string; 
+  clientDomain: string; 
+  cookieSecretExpiresDurationInMinutes: number;
   transactionSecret: string;
 
   /** Database connection details. */

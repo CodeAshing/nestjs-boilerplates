@@ -28,7 +28,11 @@ export class ConfigService {
       logLevel: env.LOG_LEVEL || DEFAULT_CONFIG.logLevel,
       jwtSecret: env.JWT_SECRET || DEFAULT_CONFIG.jwtSecret,
       refreshSecret: env.REFRESH_SECRET || DEFAULT_CONFIG.refreshSecret,
-      cookieSecret: env.COOKIE_SECRET || DEFAULT_CONFIG.cookieSecret,
+      cookieSecret: env.COOKIE_SECRET || DEFAULT_CONFIG.cookieSecret, 
+      clientDomain: env.CLIENT_DOMAIN || DEFAULT_CONFIG.clientDomain, 
+      cookieSecretExpiresDurationInMinutes:
+        Number(env.CACHE_EXPIRES_DURATION_IN_MINUTES) ||
+        DEFAULT_CONFIG.cookieSecretExpiresDurationInMinutes,
       transactionSecret:
         env.TRANSACTION_SECRET || DEFAULT_CONFIG.transactionSecret,
       databaseURI: env.DATABASE_URI || DEFAULT_CONFIG.databaseURI,

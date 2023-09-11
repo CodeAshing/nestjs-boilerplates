@@ -4,7 +4,6 @@ import { UsersService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { connectionEnum } from 'src/app/common/enum';
-import { Log, LogSchema } from 'src/app/schema';
 import { User, UserSchema } from './schema';
 
 @Module({
@@ -12,7 +11,6 @@ import { User, UserSchema } from './schema';
     MongooseModule.forFeature(
       [
         { name: User.name, schema: UserSchema },
-        { name: Log.name, schema: LogSchema },
       ],
       connectionEnum.ERP,
     ),

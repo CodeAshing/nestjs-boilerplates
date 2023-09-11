@@ -75,7 +75,7 @@ export class UsersController {
   }
 
   @Delete()
-  @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
+  // @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
   @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.USER_CREATED)
   @ApiResponse({
@@ -88,7 +88,7 @@ export class UsersController {
   }
 
   @Get('get-all-users')
-  @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
+  // @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
   @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.GET_ALL_USERS)
   @ApiResponse({

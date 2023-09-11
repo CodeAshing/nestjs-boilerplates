@@ -11,28 +11,29 @@ import {
 import { Response, Request } from 'express';
 import { GetUser, ResponseMessage } from '../common/decorator';
 import { AuthService } from './auth.service';
-import { EmployeeWebLoginDTO } from './dto';
+import { LoginDTO, RegisterDTO } from './dto';
 import { JwtGuard, RefreshTokenGuard } from './guard';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { responseEnum } from './enum';
+import { User } from '../modules/user/schema';
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
-  @Post('employee-web-login')
-  @ResponseMessage(responseEnum.EMPLOYEE_WEB_LOGIN)
+  @Post('login')
+  @ResponseMessage(responseEnum.LOGIN)
   @ApiResponse({
     status: 200,
-    description: responseEnum.EMPLOYEE_WEB_LOGIN,
+    description: responseEnum.LOGIN,
   })
   @HttpCode(200)
-  async employeeWebLogin(
+  async login(
     @Res({ passthrough: true }) response: Response,
-    @Body() payload: EmployeeWebLoginDTO,
+    @Body() payload: LoginDTO,
   ): Promise<any> {
-    return await this.authService.employeeWebLogin(response, payload);
+    return await this.authService.login(response, payload);
   }
 
   @UseGuards(JwtGuard)
@@ -44,8 +45,10 @@ export class AuthController {
   })
   @Get('refresh-token')
   @HttpCode(200)
-  async tokenRefresh(@GetUser() userData: any): Promise<any> {
-    return await this.authService.tokenRefresh(userData?.empCode);
+  async tokenRefresh(@GetUser() { email }: User,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<any> {
+    return await this.authService.tokenRefresh(email, response);
   }
 
   @UseGuards(JwtGuard)
@@ -58,10 +61,24 @@ export class AuthController {
   })
   @HttpCode(200)
   async logout(
-    @GetUser() userData: any,
+    @GetUser() { email }: User,
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
-    return await this.authService.logout(userData?.empCode, request, response);
+    return await this.authService.logout(email, request, response);
+  }
+
+  @Post('register')
+  @ResponseMessage(responseEnum.REGISTER)
+  @ApiResponse({
+    status: 200,
+    description: responseEnum.REGISTER,
+  })
+  @HttpCode(200)
+  async register(
+    @Res({ passthrough: true }) response: Response,
+    @Body() body: RegisterDTO,
+  ): Promise<any> {
+    return await this.authService.register(body, response);
   }
 }

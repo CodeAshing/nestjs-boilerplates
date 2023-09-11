@@ -39,7 +39,8 @@ const logger = new Logger('main');
 
   // set validation pipe to validate request body
   app.useGlobalPipes(
-    new ValidationPipe({      whitelist: true,
+    new ValidationPipe({
+      whitelist: true,
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
     }),
@@ -53,7 +54,7 @@ const logger = new Logger('main');
     defaultVersion: '1',
   });
 
-  
+
   // set logging interceptor to log all requests
   app.useGlobalInterceptors(new LoggingInterceptor());
 
@@ -80,18 +81,12 @@ const logger = new Logger('main');
     )
     .build();
 
-  // firebase App initialization
-
-  // global.firebaseApp = admin.initializeApp({
-  //   credential: admin.credential.cert(serviceAccount),
-  // });
-
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('/v1/swagger', app, document);
 
   app.use(cookieParser(configService.get().cookieSecret));
-  // await app.listen(process.env.PORT || configService.get().port);
-  await app.listen(configService.get().port || 8080);
+
+  await app.listen(configService.get().port || 4000);
   logger.log(`SERVER IS RUNNING ON PORT ${configService.get().port}`);
 })();

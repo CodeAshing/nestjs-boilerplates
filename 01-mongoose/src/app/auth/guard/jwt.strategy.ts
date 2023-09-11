@@ -6,6 +6,7 @@ import { Request } from 'express';
 import { ConfigService } from 'src/config/config.service';
 import { Strategy } from 'passport-jwt';
 import { responseEnum } from '../enum';
+import { JWTPayload } from '../interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -14,16 +15,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private authService: AuthService,
   ) {
     super({
-      jwtFromRequest: (request: any) => {
-        let authHeader, token;
-
-        if (request?.handshake?.headers?.authorization) {
-          token = request?.handshake.headers?.authorization;
-        } else {
-          authHeader = request?.headers.authorization;
-          token = authHeader && authHeader.split(' ')[1];
-        }
-        return token;
+      jwtFromRequest: (req: Request): string | null => {
+        if (req.signedCookies) return req.signedCookies["api-auth"].accessToken ?? null
       },
       ignoreExpiration: false,
       maxAge: '7d',
@@ -32,34 +25,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(request: any, payload: any) {
+  async validate(req: Request, payload: JWTPayload) {
     if (!payload) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
 
-    let authHeader, token;
+    const token = req.signedCookies["api-auth"].accessToken
+    const data = await this.authService.validateToken(
+      token,
+      payload,
+    ); 
 
-    if (request?.handshake?.headers?.authorization) {
-      token = request?.handshake.headers?.authorization;
-    } else {
-      authHeader = request.headers['authorization'];
-      token = authHeader && authHeader.split(' ')[1];
-    }
+    if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
 
-    switch (payload.user) {
-      case RoleEnum.EMPLOYEE: {
-        const data = await this.authService.validateEmployeeToken(
-          token,
-          payload,
-        );
-
-        if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
-
-        return data;
-      }
-      case RoleEnum.CLIENT: {
-        const data = await this.authService.validateClientToken(token, payload);
-        if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
-        return data;
-      }
-    }
+    return data;
   }
 }

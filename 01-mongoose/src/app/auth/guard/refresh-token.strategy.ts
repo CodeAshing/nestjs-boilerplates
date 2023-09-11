@@ -58,25 +58,14 @@ export class RefreshTokenStrategy extends PassportStrategy(
       );
     };
 
-    switch (payload.user) {
-      case RoleEnum.EMPLOYEE: {
-        const data = await this.authService.validateEmployeeToken(
-          token,
-          payload,
-        );
+    const data = await this.authService.validateToken(
+      token,
+      payload,
+    );
 
-        if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
+    if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
 
-        await addToCache(payload.employeeCode, token);
-        return data;
-      }
-      case RoleEnum.CLIENT: {
-        const data = await this.authService.validateClientToken(token, payload);
-        if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
-
-        await addToCache(payload.employeeCode, token);
-        return data;
-      }
-    }
+    await addToCache(payload.employeeCode, token);
+    return data;
   }
 }
