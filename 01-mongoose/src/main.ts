@@ -1,31 +1,31 @@
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { ConfigService } from './config/config.service';
-import { AppModule } from './app.module';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
+import { ConfigService } from './config/config.service'
+import { AppModule } from './app.module'
 
-import { HttpExceptionFilter } from './app/common/filter/exception.filter';
-import { createDocument } from './swagger/swagger';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as dotenv from 'dotenv';
-import helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
+import { HttpExceptionFilter } from './app/common/filter/exception.filter'
+import { createDocument } from './swagger/swagger'
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+import * as dotenv from 'dotenv'
+import helmet from 'helmet'
+import * as cookieParser from 'cookie-parser'
 
 // import * as admin from 'firebase-admin';
 // const serviceAccount = require('./firebase-adminSDK.json');
 
-dotenv.config();
-import 'reflect-metadata';
+dotenv.config()
+import 'reflect-metadata'
 import {
   LoggingInterceptor,
   TransformInterceptor,
-} from './app/common/interceptors';
+} from './app/common/interceptors'
 
-const logger = new Logger('main');
-(async () => {
+const logger = new Logger('main')
+;(async () => {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
     cors: true,
-  });
+  })
 
   // app.enableCors({
   //   allowedHeaders:
@@ -35,7 +35,7 @@ const logger = new Logger('main');
   // });
 
   // set helmet to protect from well-known web vulnerabilities by setting HTTP headers appropriately.
-  app.use(helmet());
+  app.use(helmet())
 
   // set validation pipe to validate request body
   app.useGlobalPipes(
@@ -44,24 +44,23 @@ const logger = new Logger('main');
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
     }),
-  );
+  )
   // set exception filter to handle all exceptions
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter())
 
   // set versioning to all routes
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',
-  });
-
+  })
 
   // set logging interceptor to log all requests
-  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new LoggingInterceptor())
 
   // set response transform interceptor to log all requests
-  app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalInterceptors(new TransformInterceptor())
 
-  const configService = app.get(ConfigService);
+  const configService = app.get(ConfigService)
 
   const config = new DocumentBuilder()
     .setTitle('ERP Application')
@@ -79,14 +78,14 @@ const logger = new Logger('main');
       },
       'JWT-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
     )
-    .build();
+    .build()
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config)
 
-  SwaggerModule.setup('/v1/swagger', app, document);
+  SwaggerModule.setup('/v1/swagger', app, document)
 
-  app.use(cookieParser(configService.get().cookieSecret));
+  app.use(cookieParser(configService.get().cookieSecret))
 
-  await app.listen(configService.get().port || 4000);
-  logger.log(`SERVER IS RUNNING ON PORT ${configService.get().port}`);
-})();
+  await app.listen(configService.get().port || 4000)
+  logger.log(`SERVER IS RUNNING ON PORT ${configService.get().port}`)
+})()

@@ -1,4 +1,4 @@
-import { ConfigData } from './config.interface';
+import { ConfigData } from './config.interface'
 
 export const DEFAULT_CONFIG: ConfigData = {
   env: 'development',
@@ -17,4 +17,4 @@ export const DEFAULT_CONFIG: ConfigData = {
   databaseURI: '',
   tokenExpiresDurationInMinutesForEmployee: 60,
   tokenExpiresDurationInMinutesForClient: 60,
-};
+}

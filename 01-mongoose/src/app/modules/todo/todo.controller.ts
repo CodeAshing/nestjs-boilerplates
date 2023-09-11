@@ -5,16 +5,16 @@ import {
   HttpCode,
   Post,
   UseInterceptors,
-} from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TodoService } from './todo.service';
-import { responseEnum } from './enum';
-import { ResponseMessage } from 'src/app/common/decorator';
+} from '@nestjs/common'
+import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { TodoService } from './todo.service'
+import { responseEnum } from './enum'
+import { ResponseMessage } from 'src/app/common/decorator'
 
 @Controller('todo')
-  @ApiTags('Todo')
+@ApiTags('Todo')
 export class TodoController {
-  constructor(private readonly todoService: TodoService) { }
+  constructor(private readonly todoService: TodoService) {}
 
   @Get()
   @ResponseMessage(responseEnum.GET_TODO)
@@ -28,6 +28,6 @@ export class TodoController {
   })
   @HttpCode(200)
   async getTodo(): Promise<any> {
-    return await this.todoService.getTodo();
+    return await this.todoService.getTodo()
   }
 }

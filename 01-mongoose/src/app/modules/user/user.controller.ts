@@ -1,4 +1,4 @@
-import { User } from './schema';
+import { User } from './schema'
 import {
   Body,
   Controller,
@@ -9,23 +9,20 @@ import {
   Post,
   Put,
   UseGuards,
-} from '@nestjs/common';
-import { JwtGuard, RolesGuard } from 'src/app/auth/guard';
-import { GetUser, ResponseMessage, Roles } from 'src/app/common/decorator';
-import { UsersService } from './user.service';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { responseEnum } from './enum';
-import { RoleEnum } from 'src/app/common/enum';
-import {
-  CreateClientDTO,
-  UpdateClientDTO,
-} from './dto';
+} from '@nestjs/common'
+import { JwtGuard, RolesGuard } from 'src/app/auth/guard'
+import { GetUser, ResponseMessage, Roles } from 'src/app/common/decorator'
+import { UsersService } from './user.service'
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { responseEnum } from './enum'
+import { RoleEnum } from 'src/app/common/enum'
+import { CreateClientDTO, UpdateClientDTO } from './dto'
 @Controller('user')
 @ApiTags('user')
 @UseGuards(JwtGuard)
 @ApiBearerAuth('JWT-auth')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   @ResponseMessage(responseEnum.USER_FOUND)
@@ -39,7 +36,7 @@ export class UsersController {
   })
   @HttpCode(200)
   async getUser(@GetUser() userData: User): Promise<User> {
-    return userData;
+    return userData
   }
 
   @Post()
@@ -51,7 +48,7 @@ export class UsersController {
   })
   @HttpCode(201)
   async createUser(@Body() body: CreateClientDTO): Promise<any> {
-    return await this.usersService.createUser(body);
+    return await this.usersService.createUser(body)
   }
 
   @Put()
@@ -71,7 +68,7 @@ export class UsersController {
   })
   @HttpCode(200)
   async updateUser(@Body() body: UpdateClientDTO): Promise<any> {
-    return await this.usersService.updateUser(body);
+    return await this.usersService.updateUser(body)
   }
 
   @Delete()
@@ -84,7 +81,7 @@ export class UsersController {
   })
   @HttpCode(201)
   async deleteUser(@Body() body: any): Promise<any> {
-    return await this.usersService.deleteUser(body);
+    return await this.usersService.deleteUser(body)
   }
 
   @Get('get-all-users')
@@ -97,6 +94,6 @@ export class UsersController {
   })
   @HttpCode(200)
   async getAllUsers(): Promise<any> {
-    return await this.usersService.getAllUsers();
+    return await this.usersService.getAllUsers()
   }
 }

@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
-import { TodoController } from './todo.controller';
-import { TodoService } from './todo.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module } from '@nestjs/common'
+import { TodoController } from './todo.controller'
+import { TodoService } from './todo.service'
+import { MongooseModule } from '@nestjs/mongoose'
 
-import { connectionEnum } from 'src/app/common/enum';
-import { Todo, TodoSchema } from './schema';
+import { connectionEnum } from 'src/app/common/enum'
+import { Todo, TodoSchema } from './schema'
 @Module({
   imports: [
     MongooseModule.forFeature(
@@ -15,4 +15,4 @@ import { Todo, TodoSchema } from './schema';
   controllers: [TodoController],
   providers: [TodoService],
 })
-export class TodoModule { }
+export class TodoModule {}

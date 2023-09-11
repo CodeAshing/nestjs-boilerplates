@@ -1,24 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 
-import { DEFAULT_CONFIG } from './config.default';
-import { ConfigData } from './config.interface';
+import { DEFAULT_CONFIG } from './config.default'
+import { ConfigData } from './config.interface'
 
 /**
  * Provides a means to access the application configuration.
  */
 @Injectable()
 export class ConfigService {
-  private config: ConfigData;
+  private config: ConfigData
 
   constructor(data: ConfigData = DEFAULT_CONFIG) {
-    this.config = data;
+    this.config = data
   }
 
   /**
    * Loads the config from environment variables.
    */
   public lofusingDotEnv() {
-    this.config = this.parseConfigFromEnv(process.env);
+    this.config = this.parseConfigFromEnv(process.env)
   }
 
   private parseConfigFromEnv(env: NodeJS.ProcessEnv): ConfigData {
@@ -28,8 +28,8 @@ export class ConfigService {
       logLevel: env.LOG_LEVEL || DEFAULT_CONFIG.logLevel,
       jwtSecret: env.JWT_SECRET || DEFAULT_CONFIG.jwtSecret,
       refreshSecret: env.REFRESH_SECRET || DEFAULT_CONFIG.refreshSecret,
-      cookieSecret: env.COOKIE_SECRET || DEFAULT_CONFIG.cookieSecret, 
-      clientDomain: env.CLIENT_DOMAIN || DEFAULT_CONFIG.clientDomain, 
+      cookieSecret: env.COOKIE_SECRET || DEFAULT_CONFIG.cookieSecret,
+      clientDomain: env.CLIENT_DOMAIN || DEFAULT_CONFIG.clientDomain,
       cookieSecretExpiresDurationInMinutes:
         Number(env.CACHE_EXPIRES_DURATION_IN_MINUTES) ||
         DEFAULT_CONFIG.cookieSecretExpiresDurationInMinutes,
@@ -54,9 +54,9 @@ export class ConfigService {
       clientTransactionDurationInHours:
         Number(env.CLIENT_TRANSACTION_VALIDITY_DURATION_IN_HOURS) ||
         DEFAULT_CONFIG.clientTransactionDurationInHours,
-    };
+    }
   }
   public get(): Readonly<ConfigData> {
-    return this.config;
+    return this.config
   }
 }

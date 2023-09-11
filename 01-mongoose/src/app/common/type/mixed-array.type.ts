@@ -2,30 +2,30 @@ export type mixedArrayType = {
   categories: {
     shops: {
       blocks: {
-        blockTitle: string;
+        blockTitle: string
         floors: {
-          floorTitle: string;
-          unitNo: [];
-        };
-      };
-    };
+          floorTitle: string
+          unitNo: []
+        }
+      }
+    }
     apartments: {
       blocks: {
-        blockTitle: string;
+        blockTitle: string
         floors: {
-          floorTitle: string;
-          unitNo: [];
-        };
-      };
-    };
+          floorTitle: string
+          unitNo: []
+        }
+      }
+    }
     offices: {
       blocks: {
-        blockTitle: string;
+        blockTitle: string
         floors: {
-          floorTitle: string;
-          unitNo: [];
-        };
-      };
-    };
-  };
-};
+          floorTitle: string
+          unitNo: []
+        }
+      }
+    }
+  }
+}

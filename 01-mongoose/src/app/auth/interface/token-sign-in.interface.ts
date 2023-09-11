@@ -1,7 +1,7 @@
-import { RoleEnum } from "src/app/common/enum";
+import { RoleEnum } from 'src/app/common/enum'
 
 export interface IUserToken {
   user: RoleEnum
   email: string
-  type: string;
+  type: string
 }

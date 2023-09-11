@@ -1,16 +1,16 @@
-import { JwtStrategy, RefreshTokenStrategy } from './guard';
-import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { JwtStrategy, RefreshTokenStrategy } from './guard'
+import { Module } from '@nestjs/common'
+import { AuthController } from './auth.controller'
+import { AuthService } from './auth.service'
+import { MongooseModule } from '@nestjs/mongoose'
 
-import { ConfigModule } from 'src/config/config.module';
-import { connectionEnum } from 'src/app/common/enum';
+import { ConfigModule } from 'src/config/config.module'
+import { connectionEnum } from 'src/app/common/enum'
 
-import { CacheModule } from '@nestjs/cache-manager';
-import { Helper } from 'src/app/common/helper/utilities.helper';
-import { JwtModule } from '@nestjs/jwt';
-import { User, UserSchema } from '../modules/user/schema';
+import { CacheModule } from '@nestjs/cache-manager'
+import { Helper } from 'src/app/common/helper/utilities.helper'
+import { JwtModule } from '@nestjs/jwt'
+import { User, UserSchema } from '../modules/user/schema'
 
 @Module({
   imports: [
@@ -18,9 +18,7 @@ import { User, UserSchema } from '../modules/user/schema';
     ConfigModule,
     JwtModule.register({}),
     MongooseModule.forFeature(
-      [
-        { name: User.name, schema: UserSchema },
-      ],
+      [{ name: User.name, schema: UserSchema }],
       connectionEnum.ERP,
     ),
   ],
@@ -28,4 +26,4 @@ import { User, UserSchema } from '../modules/user/schema';
   providers: [AuthService, RefreshTokenStrategy, JwtStrategy, Helper],
   exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

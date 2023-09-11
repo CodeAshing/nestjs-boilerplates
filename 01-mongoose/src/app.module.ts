@@ -1,18 +1,16 @@
-import { DatabaseModule } from 'src/database/database.module';
-import {
-  Module,
-} from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import * as dotenv from 'dotenv';
+import { DatabaseModule } from 'src/database/database.module'
+import { Module } from '@nestjs/common'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import * as dotenv from 'dotenv'
 
-import { CacheModule } from '@nestjs/cache-manager';
-dotenv.config();
+import { CacheModule } from '@nestjs/cache-manager'
+dotenv.config()
 
-import { TodoModule, UsersModule } from './app/modules';
-import { AuthModule } from './app/auth/auth.module';
-import { ConfigModule } from './config/config.module';
-import { LoggerModule } from './logger/logger.module';
+import { TodoModule, UsersModule } from './app/modules'
+import { AuthModule } from './app/auth/auth.module'
+import { ConfigModule } from './config/config.module'
+import { LoggerModule } from './logger/logger.module'
 
 @Module({
   imports: [
@@ -33,4 +31,4 @@ import { LoggerModule } from './logger/logger.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

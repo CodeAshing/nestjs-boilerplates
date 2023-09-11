@@ -7,20 +7,20 @@ import {
   Res,
   HttpCode,
   UseGuards,
-} from '@nestjs/common';
-import { Response, Request } from 'express';
-import { GetUser, ResponseMessage } from '../common/decorator';
-import { AuthService } from './auth.service';
-import { LoginDTO, RegisterDTO } from './dto';
-import { JwtGuard, RefreshTokenGuard } from './guard';
-import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { responseEnum } from './enum';
-import { User } from '../modules/user/schema';
+} from '@nestjs/common'
+import { Response, Request } from 'express'
+import { GetUser, ResponseMessage } from '../common/decorator'
+import { AuthService } from './auth.service'
+import { LoginDTO, RegisterDTO } from './dto'
+import { JwtGuard, RefreshTokenGuard } from './guard'
+import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger'
+import { responseEnum } from './enum'
+import { User } from '../modules/user/schema'
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   @ResponseMessage(responseEnum.LOGIN)
@@ -33,7 +33,7 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
     @Body() payload: LoginDTO,
   ): Promise<any> {
-    return await this.authService.login(response, payload);
+    return await this.authService.login(response, payload)
   }
 
   @UseGuards(JwtGuard)
@@ -45,10 +45,11 @@ export class AuthController {
   })
   @Get('refresh-token')
   @HttpCode(200)
-  async tokenRefresh(@GetUser() { email }: User,
+  async tokenRefresh(
+    @GetUser() { email }: User,
     @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
-    return await this.authService.tokenRefresh(email, response);
+    return await this.authService.tokenRefresh(email, response)
   }
 
   @UseGuards(JwtGuard)
@@ -65,7 +66,7 @@ export class AuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
-    return await this.authService.logout(email, request, response);
+    return await this.authService.logout(email, request, response)
   }
 
   @Post('register')
@@ -79,6 +80,6 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
     @Body() body: RegisterDTO,
   ): Promise<any> {
-    return await this.authService.register(body, response);
+    return await this.authService.register(body, response)
   }
 }

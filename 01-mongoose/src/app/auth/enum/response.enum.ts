@@ -8,5 +8,5 @@ export enum responseEnum {
   INVALID_CREDENTIAL = 'Invalid credential',
   TOKEN_REFRESH_SUCCESSFULLY = 'Token refresh successfully',
   TOKEN_REFRESH_FAILED = 'Token refresh failed',
-  REGISTER = 'You have register successfully'
+  REGISTER = 'You have register successfully',
 }

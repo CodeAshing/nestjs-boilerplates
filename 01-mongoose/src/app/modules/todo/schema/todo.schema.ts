@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document, Schema as MongooseSchema } from 'mongoose'
 
-export type TodoDocument = Todo & Document;
+export type TodoDocument = Todo & Document
 
 @Schema({
   strict: true,
@@ -10,7 +10,7 @@ export type TodoDocument = Todo & Document;
 })
 export class Todo {
   @Prop({ required: true })
-  title: string;
+  title: string
 }
 
-export const TodoSchema = SchemaFactory.createForClass(Todo);
+export const TodoSchema = SchemaFactory.createForClass(Todo)

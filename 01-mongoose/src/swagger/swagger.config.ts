@@ -1,4 +1,4 @@
-import { SwaggerConfig } from './swagger.interface';
+import { SwaggerConfig } from './swagger.interface'
 
 /**
  * Configuration for the swagger UI (found at /api).
@@ -9,4 +9,4 @@ export const SWAGGER_CONFIG: SwaggerConfig = {
   description: 'Template',
   version: '1.0',
   tags: ['Template'],
-};
+}

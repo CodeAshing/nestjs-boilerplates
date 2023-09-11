@@ -4,7 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-} from '@nestjs/common';
+} from '@nestjs/common'
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -13,14 +13,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     // console.log({ exception });
 
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
-    const request = ctx.getRequest();
+    const ctx = host.switchToHttp()
+    const response = ctx.getResponse()
+    const request = ctx.getRequest()
 
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+        : HttpStatus.INTERNAL_SERVER_ERROR
     const errorResponse = {
       status: 'error',
       code: status,
@@ -37,11 +37,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
             exception!['response']!['message'] ||
             exception!['message']!['error'] ||
             'Internal server error',
-    };
+    }
 
     // clear the cookie if the user is not authenticated
-    if (status === 401) response.clearCookie('api-auth');
+    if (status === 401) response.clearCookie('api-auth')
 
-    response.status(status).json(errorResponse);
+    response.status(status).json(errorResponse)
   }
 }

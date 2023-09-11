@@ -2,33 +2,33 @@
  * Configuration data for the app.
  */
 export interface ConfigData {
-  env: string;
+  env: string
 
   /** The port number of the http server to listen on. */
-  port: number;
+  port: number
 
   /**
    * The log level to use.
    * @example 'verbose', 'info', 'warn', 'error'
    */
-  logLevel: string;
+  logLevel: string
 
-  jwtSecret: string;
-  refreshSecret: string;
-  cookieSecret: string; 
-  clientDomain: string; 
-  cookieSecretExpiresDurationInMinutes: number;
-  transactionSecret: string;
+  jwtSecret: string
+  refreshSecret: string
+  cookieSecret: string
+  clientDomain: string
+  cookieSecretExpiresDurationInMinutes: number
+  transactionSecret: string
 
   /** Database connection details. */
 
-  databaseURI: string;
+  databaseURI: string
 
   //* Duration of the token and cookie in  minutes
-  tokenExpiresDurationInMinutesForEmployee: number;
-  tokenExpiresDurationInMinutesForClient: number;
-  cacheExpiresDurationInMinutes: number;
-  refreshExpiresDurationInYears: number;
-  clientOtpDurationInMinutes: number;
-  clientTransactionDurationInHours: number;
+  tokenExpiresDurationInMinutesForEmployee: number
+  tokenExpiresDurationInMinutesForClient: number
+  cacheExpiresDurationInMinutes: number
+  refreshExpiresDurationInYears: number
+  clientOtpDurationInMinutes: number
+  clientTransactionDurationInHours: number
 }

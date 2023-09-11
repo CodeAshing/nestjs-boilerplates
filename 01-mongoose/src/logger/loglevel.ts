@@ -32,7 +32,7 @@ const allLogLevels: string[] = [
   LogLevel.Verbose,
   LogLevel.Debug,
   LogLevel.Silly,
-];
+]
 
 /**
  * Determines if the value is a valid log level or not.
@@ -41,7 +41,7 @@ const allLogLevels: string[] = [
  */
 export function isLogLevel(value: unknown): value is LogLevel {
   if (typeof value !== 'string') {
-    return false;
+    return false
   }
-  return allLogLevels.indexOf(value) !== -1;
+  return allLogLevels.indexOf(value) !== -1
 }

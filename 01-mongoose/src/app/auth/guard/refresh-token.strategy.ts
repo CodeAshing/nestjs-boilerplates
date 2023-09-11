@@ -1,16 +1,12 @@
-import { RoleEnum } from '../../common/enum/roles.enum';
-import { AuthService } from 'src/app/auth/auth.service';
-import {
-  Inject,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
-import { PassportStrategy } from '@nestjs/passport';
-import { ConfigService } from 'src/config/config.service';
-import { Strategy } from 'passport-jwt';
-import { responseEnum } from '../enum';
+import { RoleEnum } from '../../common/enum/roles.enum'
+import { AuthService } from 'src/app/auth/auth.service'
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
+import { Cache } from 'cache-manager'
+import { PassportStrategy } from '@nestjs/passport'
+import { ConfigService } from 'src/config/config.service'
+import { Strategy } from 'passport-jwt'
+import { responseEnum } from '../enum'
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(
@@ -29,43 +25,40 @@ export class RefreshTokenStrategy extends PassportStrategy(
       maxAge: '7d',
       passReqToCallback: true,
       secretOrKey: configService.get().refreshSecret,
-    });
+    })
   }
 
   async validate(request: any, payload: any) {
-    if (!payload) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
+    if (!payload) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
-    const token = request.headers['refresh-token'];
-    if (!token) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
+    const token = request.headers['refresh-token']
+    if (!token) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
     const addToCache = async (key: any, value: string) => {
       // get data from cache
-      const cacheUserRecord = await this.cacheManager.get<{ name: string }>(
-        key,
-      );
-      let cacheData: any;
+      const cacheUserRecord = await this.cacheManager.get<{ name: string }>(key)
+      let cacheData: any
       if (cacheUserRecord) {
-        cacheData = cacheUserRecord;
-        cacheData[String(key)].push(value);
+        cacheData = cacheUserRecord
+        cacheData[String(key)].push(value)
       } else {
         cacheData = {
           [key]: [value],
-        };
+        }
       }
       // set cache data
-      await this.cacheManager.set(key, JSON.stringify(cacheData),
+      await this.cacheManager.set(
+        key,
+        JSON.stringify(cacheData),
         this.configService.get().cacheExpiresDurationInMinutes * 60,
-      );
-    };
+      )
+    }
 
-    const data = await this.authService.validateToken(
-      token,
-      payload,
-    );
+    const data = await this.authService.validateToken(token, payload)
 
-    if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED);
+    if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
-    await addToCache(payload.employeeCode, token);
-    return data;
+    await addToCache(payload.employeeCode, token)
+    return data
   }
 }

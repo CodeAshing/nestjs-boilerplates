@@ -1,4 +1,4 @@
 export type sendSMS = {
-  phone: string;
-  message: string;
-};
+  phone: string
+  message: string
+}

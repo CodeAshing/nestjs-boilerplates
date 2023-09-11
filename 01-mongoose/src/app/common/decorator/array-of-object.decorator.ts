@@ -1,11 +1,11 @@
-import { Type } from 'class-transformer';
+import { Type } from 'class-transformer'
 import {
   IsString,
   registerDecorator,
   ValidateNested,
   ValidationArguments,
   ValidationOptions,
-} from 'class-validator';
+} from 'class-validator'
 
 export function IsArrayOfObjects(validationOptions?: ValidationOptions) {
   return (object: unknown, propertyName: string) => {
@@ -23,11 +23,11 @@ export function IsArrayOfObjects(validationOptions?: ValidationOptions) {
               (element: any) =>
                 element instanceof Object && !(element instanceof Array),
             )
-          );
+          )
         },
         defaultMessage: (validationArguments?: ValidationArguments): string =>
           `${validationArguments.property} must be an array of objects`,
       },
-    });
-  };
+    })
+  }
 }
