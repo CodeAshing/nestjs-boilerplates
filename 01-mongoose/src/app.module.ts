@@ -9,12 +9,8 @@ import * as dotenv from 'dotenv';
 import { CacheModule } from '@nestjs/cache-manager';
 dotenv.config();
 
-
-//--- modules ---
 import { TodoModule, UsersModule } from './app/modules';
-
 import { AuthModule } from './app/auth/auth.module';
-
 import { ConfigModule } from './config/config.module';
 import { LoggerModule } from './logger/logger.module';
 
