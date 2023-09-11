@@ -16,8 +16,8 @@ Welcome to the Nest Boilerplates project! This repository aims to provide a coll
     - [07-fastify](#07-fastify) (Coming Soon)
     - [08-swagger](#08-swagger) (Coming Soon)
     - [09-graphql-schema-first](#09-graphql-schema-first) (Coming Soon)
-    - [10-mongo-typeorm](#10-mongo-typeorm) (Coming Soon)
-    - [11-mongoose-base](#11-mongoose-base) (Coming Soon)
+    - [10-graphql-federation-schema-first](#10-graphql-federation-schema-first) (Coming Soon)
+    - [11-graphql-mercurius](#11-graphql-mercurius) (Coming Soon)
     - [12-mvc](#12-mvc) (Coming Soon)
     - [13-gateways-ws](#13-gateways-ws) (Coming Soon)
     - [14-mvc-fastify](#14-mvc-fastify) (Coming Soon)
@@ -35,8 +35,6 @@ Welcome to the Nest Boilerplates project! This repository aims to provide a coll
     - [26-file-upload](#26-file-upload) (Coming Soon)
     - [27-event-emitter](#27-event-emitter) (Coming Soon)
     - [28-graphql-federation-code-first](#28-graphql-federation-code-first) (Coming Soon)
-    - [29-graphql-federation-schema-first](#29-graphql-federation-schema-first) (Coming Soon)
-    - [30-graphql-mercurius](#30-graphql-mercurius) (Coming Soon)
 
 
 
@@ -55,7 +53,7 @@ We welcome you to be a part of this exciting journey to enhance the Nest ecosyst
 To get started with the Nest Boilerplates project, firstly, clone this repository to your local development environment:
 
 ```bash
-git clone https://github.com/your-username/nest-boilerplates.git
+git clone https://github.com/CodeAshing/nestjs-boilerplates.git
 ```
 
 Then, navigate to the cloned repository:
@@ -78,6 +76,9 @@ Contributions to the Nest Boilerplates project are highly encouraged and appreci
 6. Be responsive to feedback and iterate on your contributions, if necessary.
 
 Upon review, your pull request will go through a validation process by the project maintainers. Once approved, your changes will be merged into the main branch, and you will become a contributor to the Nest Boilerplates project. We appreciate your efforts in making this project better and more valuable.
+
+Please follow the contribution guidelines outlined in the [Contributing.md](contributing.md) file in this repository, to make sure that your contributions align with the project standards.
+
 ## Project Boilerplates
 
 Listed below are the currently available project boilerplates with their respective explanations and key features. Click on the arrow icon (▼) to expand/collapse each section.
@@ -138,15 +139,15 @@ Listed below are the currently available project boilerplates with their respect
 </details>
 
 <details>
-<summary>10-mongo-typeorm (Coming Soon)</summary>
-- **Description**: Includes Nest and MongoDB integration with TypeORM as ORM (Coming Soon).
-- **Features**: TypeORM setups for MongoDB, entities, repositories, custom decorators, authentication, authorization, and more (Coming Soon).
+<summary>10-graphql-federation-schema-first (Coming Soon)</summary>
+- **Description**: Demonstration of GraphQL schema-first approach for implementing the GraphQL Federation protocol in Nest (Coming Soon).
+- **Features**: Federated GraphQL setup and relevant code (Coming Soon).
 </details>
 
 <details>
-<summary>11-mongoose-base (Coming Soon)</summary>
-- **Description**: Base setup for a Nest application using Mongoose as the ORM and MongoDB as the database (Coming Soon).
-- **Features**: Project structure, basic MongoDB and Mongoose configurations (Coming Soon).
+<summary>11-graphql-mercurius (Coming Soon)</summary>
+- **Description**: Project template illustrating how to integrate the Mercurius GraphQL framework into your Nest application (Coming Soon).
+- **Features**: Mercurius integration, queries, mutations, subscriptions, and examples showcasing similar functionality as the Apollo Server integration (Coming Soon).
 </details>
 
 <details>
@@ -251,21 +252,37 @@ Listed below are the currently available project boilerplates with their respect
 - **Features**: Federated schema composition, example queries and mutations (Coming Soon).
 </details>
 
-<details>
-<summary>29-graphql-federation-schema-first (Coming Soon)</summary>
-- **Description**: Demonstration of GraphQL schema-first approach for implementing the GraphQL Federation protocol in Nest (Coming Soon).
-- **Features**: Federated GraphQL setup and relevant code (Coming Soon).
-</details>
 
-<details>
-<summary>30-graphql-mercurius (Coming Soon)</summary>
-- **Description**: Project template illustrating how to integrate the Mercurius GraphQL framework into your Nest application (Coming Soon).
-- **Features**: Mercurius integration, queries, mutations, subscriptions, and examples showcasing similar functionality as the Apollo Server integration (Coming Soon).
-</details>
+<br/>
 
+## Coming Soon: Nest Boilerplate CLI!!
 
-## Contribution Guidelines:
-Please follow the contribution guidelines outlined in the [Contributing.md](contributing.md) file in this repository, to make sure that your contributions align with the project standards.
+> [!NOTE]
+> Future Feature: CLI for creating NestJS projects based on boilerplates.
+
+We are excited to announce that in the near future, we will be introducing a command-line interface (CLI) for the Nest Boilerplates project. This CLI will make it even easier to create NestJS projects based on any of our available boilerplates.
+
+No more hassle or manual setup! With just a simple command, you will be able to create a fully functional NestJS project using your desired boilerplate.
+
+Here's a sneak peek of how it will work:
+
+1. Install the Nest Boilerplate CLI globally on your machine.
+
+```
+npm install -g nest-boilerplate-cli
+```
+
+2. Choose your desired boilerplate from our collection. For example, let's say you want to create a project using the "mongoose" boilerplate.
+
+3. Run the CLI command, specifying the boilerplate you wish to use.
+
+```
+nest-boilerplate-cli create --boilerplate=mongoose
+```
+
+4. Sit back and relax while the Nest Boilerplate CLI takes care of the heavy lifting, creating your project based on the selected boilerplate.
+
+Once the process is complete, you will have a fully configured NestJS project, ready to be customized
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
