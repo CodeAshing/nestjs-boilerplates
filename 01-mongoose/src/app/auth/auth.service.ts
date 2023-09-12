@@ -26,7 +26,6 @@ import { User, UserDocument } from '../modules/user/schema'
 
 import { Helper } from 'src/app/common/helper/utilities.helper'
 import { responseEnum } from './enum'
-
 const helper = new Helper()
 @Injectable()
 export class AuthService {
@@ -41,7 +40,7 @@ export class AuthService {
 
     @InjectModel(User.name, connectionEnum.ERP)
     private readonly userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   async register(body: RegisterDTO, response: Response): Promise<any> {
     this.logger.log('Hits register() Method')
@@ -50,12 +49,10 @@ export class AuthService {
       email: body.email,
     })
 
-    //check if employee exists
     if (userData) throw new ForbiddenException(responseEnum.INVALID_CREDENTIAL)
 
     const hash = await this.helper.encryptPassword(body.password)
 
-    //generate jwt token for the employee
     const accessTokenPayload = {
       user: body.role,
       email: body.email,
@@ -68,7 +65,6 @@ export class AuthService {
       this.config.get().jwtSecret,
     )
 
-    //generate refresh token for the employee
     const refreshTokenPayload = {
       user: body.role,
       email: body.email,
@@ -89,7 +85,7 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(
           Number(new Date()) +
-            this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
+          this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
         ),
         signed: true,
       },
@@ -111,7 +107,6 @@ export class AuthService {
       email,
     })
 
-    //check if user exists
     if (!userData) throw new ForbiddenException(responseEnum.INVALID_CREDENTIAL)
 
     const isMatched = await this.helper.comparePassword(
@@ -122,7 +117,6 @@ export class AuthService {
     if (!isMatched)
       throw new ForbiddenException(responseEnum.INVALID_CREDENTIAL)
 
-    //generate jwt token for the employee
     const accessTokenPayload = {
       user: userData.role,
       email: body.email,
@@ -135,7 +129,6 @@ export class AuthService {
       this.config.get().jwtSecret,
     )
 
-    //generate refresh token for the employee
     const refreshTokenPayload = {
       user: userData.role,
       email: body.email,
@@ -156,7 +149,7 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(
           Number(new Date()) +
-            this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
+          this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
         ),
         signed: true,
       },
@@ -172,26 +165,16 @@ export class AuthService {
   ): Promise<any> {
     const authToken = request.signedCookies['api-auth'].accessToken
 
-    // get data from cache
-    const cacheUserRecord = await this.cacheManager.get<{ name: string }>(email)
+    const cacheUserRecord = await this.cacheManager.get<string[]>(email) ?? []
 
-    let cacheData: any
-    if (cacheUserRecord) {
-      cacheData = cacheUserRecord
-      cacheData[String(email)].push(authToken)
-    } else {
-      cacheData = {
-        [email]: [authToken],
-      }
-    }
-    // set cache data
+    cacheUserRecord.push(authToken)
+
     await this.cacheManager.set(
       email,
-      JSON.stringify(cacheData),
-      this.config.get().cacheExpiresDurationInMinutes * 60,
+      cacheUserRecord,
+      this.config.get().cacheExpiresDurationInMinutes * 60 * 60,
     )
 
-    // Clear cookie
     response.clearCookie('api-auth')
 
     this.logger.log(`User ${email} logged out successfully`)
@@ -213,13 +196,12 @@ export class AuthService {
     return token
   }
 
-  async tokenRefresh(empCode: string, response: Response): Promise<any> {
+  async tokenRefresh(email: string, response: Response): Promise<any> {
     this.logger.log('Hits tokenRefresh()')
 
-    //generate jwt token for the employee
     const accessTokenPayload = {
       user: RoleEnum.ADMIN,
-      email: empCode,
+      email: email,
       type: 'access',
     }
 
@@ -229,10 +211,9 @@ export class AuthService {
       this.config.get().jwtSecret,
     )
 
-    //generate refresh token for the employee
     const refreshTokenPayload = {
       user: RoleEnum.USER,
-      email: empCode,
+      email: email,
       type: 'refresh',
     }
 
@@ -250,7 +231,7 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(
           Number(new Date()) +
-            this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
+          this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
         ),
         signed: true,
       },
@@ -266,17 +247,12 @@ export class AuthService {
 
     if (!user) throw new ForbiddenException(responseEnum.NOT_AUTHORIZED)
 
-    const cacheUser = await this.cacheManager.get<{ name: string }>(
+    const cacheUser = await this.cacheManager.get<string[]>(
       payload.email,
     )
 
-    if (cacheUser) {
-      let parsedUserData = cacheUser
-      parsedUserData = parsedUserData[payload.email]
-
-      // if (parsedUserData?.includes(token))
-      //   throw new UnauthorizedException(responseEnum.SESSION_EXPIRED);
-    }
+    if (cacheUser?.includes(token))
+      throw new UnauthorizedException(responseEnum.SESSION_EXPIRED);
 
     return user
   }

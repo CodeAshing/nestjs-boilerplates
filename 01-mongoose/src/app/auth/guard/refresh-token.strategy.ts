@@ -6,7 +6,9 @@ import { Cache } from 'cache-manager'
 import { PassportStrategy } from '@nestjs/passport'
 import { ConfigService } from 'src/config/config.service'
 import { Strategy } from 'passport-jwt'
+import { Request } from 'express'
 import { responseEnum } from '../enum'
+import { JWTPayload } from '../interface'
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(
@@ -20,7 +22,10 @@ export class RefreshTokenStrategy extends PassportStrategy(
     private authService: AuthService,
   ) {
     super({
-      jwtFromRequest: (request: any) => request.headers['refresh-token'],
+      jwtFromRequest: (req: Request): string | null => {
+        if (req.signedCookies)
+          return req.signedCookies['api-auth'].refreshToken ?? null
+      },
       ignoreExpiration: false,
       maxAge: '7d',
       passReqToCallback: true,
@@ -28,29 +33,22 @@ export class RefreshTokenStrategy extends PassportStrategy(
     })
   }
 
-  async validate(request: any, payload: any) {
+  async validate(request: Request, payload: JWTPayload) {
     if (!payload) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
-    const token = request.headers['refresh-token']
+    const token = request.signedCookies['api-auth'].accessToken
     if (!token) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
-    const addToCache = async (key: any, value: string) => {
-      // get data from cache
-      const cacheUserRecord = await this.cacheManager.get<{ name: string }>(key)
-      let cacheData: any
-      if (cacheUserRecord) {
-        cacheData = cacheUserRecord
-        cacheData[String(key)].push(value)
-      } else {
-        cacheData = {
-          [key]: [value],
-        }
-      }
-      // set cache data
+    const addToCache = async (key: string, value: string) => {
+
+      const cacheUserRecord = await this.cacheManager.get<string[]>(key) ?? []
+
+      cacheUserRecord.push(value)
+
       await this.cacheManager.set(
         key,
-        JSON.stringify(cacheData),
-        this.configService.get().cacheExpiresDurationInMinutes * 60,
+        cacheUserRecord,
+        this.configService.get().cacheExpiresDurationInMinutes * 60 * 60,
       )
     }
 
@@ -58,7 +56,7 @@ export class RefreshTokenStrategy extends PassportStrategy(
 
     if (!data) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
-    await addToCache(payload.employeeCode, token)
+    await addToCache(payload.email, token)
     return data
   }
 }

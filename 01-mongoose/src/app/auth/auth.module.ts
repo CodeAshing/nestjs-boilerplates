@@ -13,17 +13,19 @@ import { JwtModule } from '@nestjs/jwt'
 import { User, UserSchema } from '../modules/user/schema'
 
 @Module({
-  imports: [
-    CacheModule.register(),
+  imports: [CacheModule.register({
+    ttl: 3600, // seconds
+    max: 100, // maximum number of items in cache
+  }),
     ConfigModule,
-    JwtModule.register({}),
-    MongooseModule.forFeature(
-      [{ name: User.name, schema: UserSchema }],
-      connectionEnum.ERP,
-    ),
+  JwtModule.register({}),
+  MongooseModule.forFeature(
+    [{ name: User.name, schema: UserSchema }],
+    connectionEnum.ERP,
+  ),
   ],
   controllers: [AuthController],
   providers: [AuthService, RefreshTokenStrategy, JwtStrategy, Helper],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }
