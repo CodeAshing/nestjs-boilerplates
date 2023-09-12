@@ -16,13 +16,13 @@ import { UsersService } from './user.service'
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { responseEnum } from './enum'
 import { RoleEnum } from 'src/app/common/enum'
-import { CreateClientDTO, UpdateClientDTO } from './dto'
+import { DeleteUserDTO, UpdateUserDTO } from './dto'
 @Controller('user')
 @ApiTags('user')
 @UseGuards(JwtGuard)
 @ApiBearerAuth('JWT-auth')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Get()
   @ResponseMessage(responseEnum.USER_FOUND)
@@ -39,20 +39,7 @@ export class UsersController {
     return userData
   }
 
-  @Post()
-  @UseGuards(RolesGuard)
-  @ResponseMessage(responseEnum.USER_CREATED)
-  @ApiResponse({
-    status: 201,
-    description: responseEnum.USER_CREATED,
-  })
-  @HttpCode(201)
-  async createUser(@Body() body: CreateClientDTO): Promise<any> {
-    return await this.usersService.createUser(body)
-  }
-
   @Put()
-  @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.USER_UPDATED)
   @ApiResponse({
     status: 200,
@@ -67,12 +54,13 @@ export class UsersController {
     description: responseEnum.USER_UPDATE_FAILED,
   })
   @HttpCode(200)
-  async updateUser(@Body() body: UpdateClientDTO): Promise<any> {
-    return await this.usersService.updateUser(body)
+  async updateUser(@Body() body: UpdateUserDTO,
+    @GetUser() { email }: User): Promise<any> {
+    return this.usersService.updateUser(body, email)
   }
 
   @Delete()
-  // @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
+  @Roles([RoleEnum.ADMIN])
   @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.USER_CREATED)
   @ApiResponse({
@@ -80,12 +68,12 @@ export class UsersController {
     description: responseEnum.USER_CREATED,
   })
   @HttpCode(201)
-  async deleteUser(@Body() body: any): Promise<any> {
-    return await this.usersService.deleteUser(body)
+  async deleteUser(@Body() { email }: DeleteUserDTO): Promise<any> {
+    return await this.usersService.deleteUser(email)
   }
 
   @Get('get-all-users')
-  // @Roles([RoleEnum.REGIONAL_DIRECTOR, RoleEnum.EMPLOYEE])
+  @Roles([RoleEnum.ADMIN])
   @UseGuards(RolesGuard)
   @ResponseMessage(responseEnum.GET_ALL_USERS)
   @ApiResponse({

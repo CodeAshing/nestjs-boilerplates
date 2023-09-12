@@ -5,7 +5,7 @@ import { RoleEnum } from 'src/app/common/enum'
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector) { }
 
   canActivate(context: ExecutionContext): boolean {
     const requiredRoles = this.reflector.getAllAndMerge<RoleEnum[]>(ROLES_KEY, [
@@ -17,6 +17,6 @@ export class RolesGuard implements CanActivate {
 
     const { user } = context.switchToHttp().getRequest()
 
-    return requiredRoles.some((role) => user?.role?.erp === role)
+    return requiredRoles.some((role) => user.role === role)
   }
 }

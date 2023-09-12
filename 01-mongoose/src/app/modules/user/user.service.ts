@@ -1,71 +1,47 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { connectionEnum } from 'src/app/common/enum'
+import { RoleEnum, connectionEnum } from 'src/app/common/enum'
 
 import { User, UserDocument } from 'src/app/modules/user/schema'
 import { responseEnum } from './enum'
-import { CreateClientDTO, UpdateClientDTO } from './dto'
+import { UpdateUserDTO } from './dto'
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name, connectionEnum.ERP)
     private readonly userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
-  async createUser(body: CreateClientDTO): Promise<any> {
+  async deleteUser(email: string): Promise<any> {
     const exists = await this.userModel
-      .exists({ CNIC: body.CNIC })
-      .catch((e) => {
-        throw new InternalServerErrorException(e)
-      })
-    if (exists)
-      throw new InternalServerErrorException(responseEnum.USERS_ALREADY_EXISTS)
+      .exists({ email, role: RoleEnum.USER })
 
-    const client = await this.userModel.create(body).catch((e) => {
-      throw new InternalServerErrorException(e)
-    })
-    return { client: client._id }
+    if (exists)
+      throw new BadRequestException(responseEnum.USER_NOT_FOUND_CAN_NOT_DELETED)
+
+    await this.userModel
+      .deleteOne({ email, role: RoleEnum.USER })
+
+    return null
   }
 
-  async deleteUser(body: any): Promise<any> {
-    const exists = await this.userModel
-      .exists({ CNIC: body.CNIC })
-      .catch((e) => {
-        throw new InternalServerErrorException(e)
-      })
-    if (exists)
-      throw new InternalServerErrorException(responseEnum.USERS_ALREADY_EXISTS)
+  async updateUser(body: UpdateUserDTO, email: string): Promise<any> {
 
-    const dealer = await this.userModel.create(body).catch((e) => {
-      throw new InternalServerErrorException(e)
-    })
-    return { dealer: dealer._id }
-  }
+    const user = await this.userModel
+      .findOneAndUpdate({ email }, body, { upsert: false })
 
-  async updateUser(body: UpdateClientDTO): Promise<any> {
-    const exists = await this.userModel.exists({ CNIC: body.CNIC })
-    if (!exists) throw new NotFoundException(responseEnum.USER_NOT_FOUND)
-
-    const client = await this.userModel
-      .findOneAndReplace({ CNIC: body.CNIC }, body, { upsert: false })
-      .catch((e) => {
-        throw new InternalServerErrorException(e)
-      })
-
-    if (!client) throw new ConflictException(responseEnum.USER_UPDATE_FAILED)
-    return
+    if (!user) throw new ConflictException(responseEnum.USER_UPDATE_FAILED)
+    return null
   }
 
   async getAllUsers(): Promise<any> {
-    const dealers = await this.userModel.find()
-
-    return dealers
+    return this.userModel.find().select({ password: 0 })
   }
 }

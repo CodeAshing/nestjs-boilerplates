@@ -1,7 +1,6 @@
 import { TodoDocument, Todo } from './schema'
 import {
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
@@ -18,9 +17,7 @@ export class TodoService {
   ) {}
 
   async getTodo(): Promise<any> {
-    const todos = await this.todoModel.find().catch((e) => {
-      throw new InternalServerErrorException(e.message)
-    })
+    const todos = await this.todoModel.find()
 
     if (!todos) throw new NotFoundException(responseEnum.TODO_NOT_FOUND)
 

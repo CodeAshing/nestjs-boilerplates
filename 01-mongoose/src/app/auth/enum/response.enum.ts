@@ -9,4 +9,5 @@ export enum responseEnum {
   TOKEN_REFRESH_SUCCESSFULLY = 'Token refresh successfully',
   TOKEN_REFRESH_FAILED = 'Token refresh failed',
   REGISTER = 'You have register successfully',
+  USER_ALREADY_EXIST = 'User already exist with this email'
 }

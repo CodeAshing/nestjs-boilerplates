@@ -16,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   ) {
     super({
       jwtFromRequest: (req: Request): string | null => {
-        if (req.signedCookies)
+        if (req.signedCookies['api-auth'])
           return req.signedCookies['api-auth'].accessToken ?? null
       },
       ignoreExpiration: false,

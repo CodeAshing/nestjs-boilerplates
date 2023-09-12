@@ -1,5 +1,6 @@
 import { RoleEnum } from '../common/enum'
 import {
+  ConflictException,
   ForbiddenException,
   Inject,
   Injectable,
@@ -49,7 +50,7 @@ export class AuthService {
       email: body.email,
     })
 
-    if (userData) throw new ForbiddenException(responseEnum.INVALID_CREDENTIAL)
+    if (userData) throw new ConflictException(responseEnum.USER_ALREADY_EXIST)
 
     const hash = await this.helper.encryptPassword(body.password)
 
@@ -243,7 +244,7 @@ export class AuthService {
 
     const user = await this.userModel.findOne({
       email: payload.email,
-    })
+    }).select({ password: 0 })
 
     if (!user) throw new ForbiddenException(responseEnum.NOT_AUTHORIZED)
 

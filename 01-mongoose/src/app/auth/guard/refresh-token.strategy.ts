@@ -23,7 +23,7 @@ export class RefreshTokenStrategy extends PassportStrategy(
   ) {
     super({
       jwtFromRequest: (req: Request): string | null => {
-        if (req.signedCookies)
+        if (req.signedCookies['api-auth'])
           return req.signedCookies['api-auth'].refreshToken ?? null
       },
       ignoreExpiration: false,
