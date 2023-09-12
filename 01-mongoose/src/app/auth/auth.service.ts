@@ -41,7 +41,7 @@ export class AuthService {
 
     @InjectModel(User.name, connectionEnum.ERP)
     private readonly userModel: Model<UserDocument>,
-  ) { }
+  ) {}
 
   async register(body: RegisterDTO, response: Response): Promise<any> {
     this.logger.log('Hits register() Method')
@@ -86,7 +86,7 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(
           Number(new Date()) +
-          this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
+            this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
         ),
         signed: true,
       },
@@ -150,7 +150,7 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(
           Number(new Date()) +
-          this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
+            this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
         ),
         signed: true,
       },
@@ -166,7 +166,7 @@ export class AuthService {
   ): Promise<any> {
     const authToken = request.signedCookies['api-auth'].accessToken
 
-    const cacheUserRecord = await this.cacheManager.get<string[]>(email) ?? []
+    const cacheUserRecord = (await this.cacheManager.get<string[]>(email)) ?? []
 
     cacheUserRecord.push(authToken)
 
@@ -232,7 +232,7 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(
           Number(new Date()) +
-          this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
+            this.config.get().cookieSecretExpiresDurationInMinutes * 60 * 1000,
         ),
         signed: true,
       },
@@ -242,18 +242,18 @@ export class AuthService {
   async validateToken(token: string, payload: IUserToken): Promise<User> {
     this.logger.log('Hits validateEmployeeToken()')
 
-    const user = await this.userModel.findOne({
-      email: payload.email,
-    }).select({ password: 0 })
+    const user = await this.userModel
+      .findOne({
+        email: payload.email,
+      })
+      .select({ password: 0 })
 
     if (!user) throw new ForbiddenException(responseEnum.NOT_AUTHORIZED)
 
-    const cacheUser = await this.cacheManager.get<string[]>(
-      payload.email,
-    )
+    const cacheUser = await this.cacheManager.get<string[]>(payload.email)
 
     if (cacheUser?.includes(token))
-      throw new UnauthorizedException(responseEnum.SESSION_EXPIRED);
+      throw new UnauthorizedException(responseEnum.SESSION_EXPIRED)
 
     return user
   }

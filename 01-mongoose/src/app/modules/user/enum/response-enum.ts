@@ -8,5 +8,4 @@ export enum responseEnum {
   USER_FOUND = 'USER fetched successfully.',
   USER_NOT_FOUND = 'Unable to fetch USER.',
   USER_NOT_FOUND_CAN_NOT_DELETED = 'User not found or you can not delete him/her',
-  
 }

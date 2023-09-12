@@ -1,4 +1,9 @@
-import { IsEmail, IsNotEmpty, IsOptional, ValidateNested } from '@nestjs/class-validator'
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  ValidateNested,
+} from '@nestjs/class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
 import { IsArrayOfObjects } from 'src/app/common/decorator'

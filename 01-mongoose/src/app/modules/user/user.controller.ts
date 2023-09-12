@@ -22,7 +22,7 @@ import { DeleteUserDTO, UpdateUserDTO } from './dto'
 @UseGuards(JwtGuard)
 @ApiBearerAuth('JWT-auth')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   @ResponseMessage(responseEnum.USER_FOUND)
@@ -54,8 +54,10 @@ export class UsersController {
     description: responseEnum.USER_UPDATE_FAILED,
   })
   @HttpCode(200)
-  async updateUser(@Body() body: UpdateUserDTO,
-    @GetUser() { email }: User): Promise<any> {
+  async updateUser(
+    @Body() body: UpdateUserDTO,
+    @GetUser() { email }: User,
+  ): Promise<any> {
     return this.usersService.updateUser(body, email)
   }
 

@@ -22,6 +22,11 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "deploy:local": "node ./node_modules/serverless/bin/serverless.js offline"
   },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "@nestjs/cache-manager": "^2.1.0",
     "@nestjs/class-transformer": "^0.4.0",

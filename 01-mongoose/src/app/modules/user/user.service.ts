@@ -17,25 +17,23 @@ export class UsersService {
   constructor(
     @InjectModel(User.name, connectionEnum.ERP)
     private readonly userModel: Model<UserDocument>,
-  ) { }
+  ) {}
 
   async deleteUser(email: string): Promise<any> {
-    const exists = await this.userModel
-      .exists({ email, role: RoleEnum.USER })
+    const exists = await this.userModel.exists({ email, role: RoleEnum.USER })
 
     if (exists)
       throw new BadRequestException(responseEnum.USER_NOT_FOUND_CAN_NOT_DELETED)
 
-    await this.userModel
-      .deleteOne({ email, role: RoleEnum.USER })
+    await this.userModel.deleteOne({ email, role: RoleEnum.USER })
 
     return null
   }
 
   async updateUser(body: UpdateUserDTO, email: string): Promise<any> {
-
-    const user = await this.userModel
-      .findOneAndUpdate({ email }, body, { upsert: false })
+    const user = await this.userModel.findOneAndUpdate({ email }, body, {
+      upsert: false,
+    })
 
     if (!user) throw new ConflictException(responseEnum.USER_UPDATE_FAILED)
     return null

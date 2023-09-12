@@ -40,8 +40,7 @@ export class RefreshTokenStrategy extends PassportStrategy(
     if (!token) throw new UnauthorizedException(responseEnum.NOT_AUTHORIZED)
 
     const addToCache = async (key: string, value: string) => {
-
-      const cacheUserRecord = await this.cacheManager.get<string[]>(key) ?? []
+      const cacheUserRecord = (await this.cacheManager.get<string[]>(key)) ?? []
 
       cacheUserRecord.push(value)
 
