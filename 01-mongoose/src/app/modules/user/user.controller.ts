@@ -57,7 +57,7 @@ export class UsersController {
   async updateUser(
     @Body() body: UpdateUserDTO,
     @GetUser() { email }: User,
-  ): Promise<any> {
+  ): Promise<null> {
     return this.usersService.updateUser(body, email)
   }
 
@@ -70,7 +70,7 @@ export class UsersController {
     description: responseEnum.USER_CREATED,
   })
   @HttpCode(201)
-  async deleteUser(@Body() { email }: DeleteUserDTO): Promise<any> {
+  async deleteUser(@Body() { email }: DeleteUserDTO): Promise<null> {
     return await this.usersService.deleteUser(email)
   }
 
@@ -83,7 +83,7 @@ export class UsersController {
     description: responseEnum.GET_ALL_USERS,
   })
   @HttpCode(200)
-  async getAllUsers(): Promise<any> {
+  async getAllUsers(): Promise<User[]> {
     return await this.usersService.getAllUsers()
   }
 }

@@ -19,7 +19,7 @@ export class UsersService {
     private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async deleteUser(email: string): Promise<any> {
+  async deleteUser(email: string): Promise<null> {
     const exists = await this.userModel.exists({ email, role: RoleEnum.USER })
 
     if (!exists)
@@ -30,7 +30,7 @@ export class UsersService {
     return null
   }
 
-  async updateUser(body: UpdateUserDTO, email: string): Promise<any> {
+  async updateUser(body: UpdateUserDTO, email: string): Promise<null> {
     const user = await this.userModel.findOneAndUpdate({ email }, body, {
       upsert: false,
     })
@@ -39,7 +39,7 @@ export class UsersService {
     return null
   }
 
-  async getAllUsers(): Promise<any> {
+  async getAllUsers(): Promise<User[]> {
     return this.userModel.find().select({ password: 0 })
   }
 }
