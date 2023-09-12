@@ -22,7 +22,7 @@ export class UsersService {
   async deleteUser(email: string): Promise<any> {
     const exists = await this.userModel.exists({ email, role: RoleEnum.USER })
 
-    if (exists)
+    if (!exists)
       throw new BadRequestException(responseEnum.USER_NOT_FOUND_CAN_NOT_DELETED)
 
     await this.userModel.deleteOne({ email, role: RoleEnum.USER })
