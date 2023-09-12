@@ -11,7 +11,7 @@ import { AddTodoDTO } from './dto'
 @Injectable()
 export class TodoService {
   constructor(
-    @InjectModel(Todo.name, connectionEnum.ERP)
+    @InjectModel(Todo.name, connectionEnum.database)
     private readonly todoModel: Model<TodoDocument>,
   ) { }
 

@@ -10,7 +10,7 @@ import { User, UserSchema } from './schema'
   imports: [
     MongooseModule.forFeature(
       [{ name: User.name, schema: UserSchema }],
-      connectionEnum.ERP,
+      connectionEnum.database,
     ),
   ],
   controllers: [UsersController],

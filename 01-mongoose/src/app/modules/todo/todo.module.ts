@@ -9,7 +9,7 @@ import { Todo, TodoSchema } from './schema'
   imports: [
     MongooseModule.forFeature(
       [{ name: Todo.name, schema: TodoSchema }],
-      connectionEnum.ERP,
+      connectionEnum.database,
     ),
   ],
   controllers: [TodoController],

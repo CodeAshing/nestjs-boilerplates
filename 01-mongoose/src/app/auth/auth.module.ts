@@ -18,7 +18,7 @@ import { User, UserSchema } from '../modules/user/schema'
     JwtModule.register({}),
     MongooseModule.forFeature(
       [{ name: User.name, schema: UserSchema }],
-      connectionEnum.ERP,
+      connectionEnum.database,
     ),
   ],
   controllers: [AuthController],

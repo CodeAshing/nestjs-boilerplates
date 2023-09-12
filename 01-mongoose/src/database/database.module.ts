@@ -32,7 +32,7 @@ export class DatabaseModule {
               'databaseURI',
             ),
           inject: [ConfigService],
-          connectionName: connectionEnum.ERP,
+          connectionName: connectionEnum.database,
         }),
       ],
       controllers: [],

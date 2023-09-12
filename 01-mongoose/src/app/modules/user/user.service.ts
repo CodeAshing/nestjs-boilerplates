@@ -15,7 +15,7 @@ import { UpdateUserDTO } from './dto'
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name, connectionEnum.ERP)
+    @InjectModel(User.name, connectionEnum.database)
     private readonly userModel: Model<UserDocument>,
   ) {}
 

@@ -1,3 +1,3 @@
 export enum connectionEnum {
-  ERP = 'ERPConnection',
+  database = 'database',
 }

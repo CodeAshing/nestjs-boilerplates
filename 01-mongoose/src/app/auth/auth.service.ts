@@ -39,7 +39,7 @@ export class AuthService {
 
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
 
-    @InjectModel(User.name, connectionEnum.ERP)
+    @InjectModel(User.name, connectionEnum.database)
     private readonly userModel: Model<UserDocument>,
   ) {}
 

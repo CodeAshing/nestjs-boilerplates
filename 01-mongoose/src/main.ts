@@ -63,8 +63,8 @@ const logger = new Logger('main')
   const configService = app.get(ConfigService)
 
   const config = new DocumentBuilder()
-    .setTitle('ERP Application')
-    .setDescription('ERP API Application')
+    .setTitle('Mongoose Application')
+    .setDescription('Mongoose API Application')
     .setVersion('v1')
     .addTag('Development')
     .addBearerAuth(
