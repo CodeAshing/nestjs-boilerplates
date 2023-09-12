@@ -9,7 +9,7 @@ import { Type } from 'class-transformer'
 import { IsArrayOfObjects } from 'src/app/common/decorator'
 
 export class DeleteUserDTO {
-  @ApiProperty({ description: 'Username', example: '07030016' })
+  @ApiProperty({ description: 'email', example: 'test@example.com' })
   @IsEmail()
   @IsNotEmpty()
   email: string

@@ -8,8 +8,8 @@ export class LoginDTO {
 
   @IsNotEmpty({ message: 'Please provide password' })
   @ApiProperty({ description: 'Password', example: '123456' })
-  // @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-  //   message: 'Password is too weak',
-  // })
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'Password is too weak',
+  })
   password: string
 }

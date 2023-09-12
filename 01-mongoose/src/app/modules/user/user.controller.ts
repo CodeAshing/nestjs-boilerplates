@@ -13,14 +13,14 @@ import {
 import { JwtGuard, RolesGuard } from 'src/app/auth/guard'
 import { GetUser, ResponseMessage, Roles } from 'src/app/common/decorator'
 import { UsersService } from './user.service'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { responseEnum } from './enum'
 import { RoleEnum } from 'src/app/common/enum'
 import { DeleteUserDTO, UpdateUserDTO } from './dto'
 @Controller('user')
 @ApiTags('user')
 @UseGuards(JwtGuard)
-@ApiBearerAuth('JWT-auth')
+@ApiCookieAuth('api-auth')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -64,10 +64,10 @@ export class UsersController {
   @Delete()
   @Roles([RoleEnum.ADMIN])
   @UseGuards(RolesGuard)
-  @ResponseMessage(responseEnum.USER_CREATED)
+  @ResponseMessage(responseEnum.USER_DELETED)
   @ApiResponse({
     status: 201,
-    description: responseEnum.USER_CREATED,
+    description: responseEnum.USER_DELETED,
   })
   @HttpCode(201)
   async deleteUser(@Body() { email }: DeleteUserDTO): Promise<null> {

@@ -13,7 +13,7 @@ import { GetUser, ResponseMessage } from '../common/decorator'
 import { AuthService } from './auth.service'
 import { LoginDTO, RegisterDTO } from './dto'
 import { JwtGuard, RefreshTokenGuard } from './guard'
-import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger'
+import { ApiResponse, ApiTags, ApiCookieAuth } from '@nestjs/swagger'
 import { responseEnum } from './enum'
 import { User } from '../modules/user/schema'
 
@@ -53,7 +53,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtGuard)
-  @ApiBearerAuth('JWT-auth')
+  @ApiCookieAuth('api-auth')
   @Get('logout')
   @ResponseMessage(responseEnum.LOGOUT)
   @ApiResponse({

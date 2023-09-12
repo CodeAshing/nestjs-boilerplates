@@ -10,12 +10,12 @@ import { IsString, isNotEmpty } from 'class-validator'
 import { IsArrayOfObjects } from 'src/app/common/decorator'
 
 export class AddTodoDTO {
-  @ApiProperty({ description: 'Username', example: '07030016' })
+  @ApiProperty({ description: 'title', example: 'test' })
   @IsString()
   @IsNotEmpty()
   title: string
 
-  @ApiProperty({ description: 'Username', example: '07030016' })
+  @ApiProperty({ description: 'description', example: 'test' })
   @IsString()
   @IsNotEmpty()
   description: string

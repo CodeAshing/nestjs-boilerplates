@@ -3,11 +3,12 @@ import {
   Controller,
   Get,
   HttpCode,
-  Post, Delete,
+  Post,
+  Delete,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiCookieAuth, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { TodoService } from './todo.service'
 import { responseEnum } from './enum'
 import { GetUser, ResponseMessage } from 'src/app/common/decorator'
@@ -19,9 +20,9 @@ import { Todo } from './schema'
 @Controller('todo')
 @ApiTags('Todo')
 @UseGuards(JwtGuard)
-@ApiBearerAuth('JWT-auth')
+@ApiCookieAuth('api-auth')
 export class TodoController {
-  constructor(private readonly todoService: TodoService) { }
+  constructor(private readonly todoService: TodoService) {}
 
   @Get()
   @ResponseMessage(responseEnum.GET_TODO)
@@ -34,9 +35,7 @@ export class TodoController {
     description: responseEnum.TODO_NOT_FOUND,
   })
   @HttpCode(200)
-  async getTodo(
-    @GetUser() { email }: User
-  ): Promise<Todo[]> {
+  async getTodo(@GetUser() { email }: User): Promise<Todo[]> {
     return await this.todoService.getTodo(email)
   }
 
@@ -47,12 +46,12 @@ export class TodoController {
     description: responseEnum.TODO_ADD,
   })
   @HttpCode(200)
-  async setTodo(@Body() body: AddTodoDTO,
+  async setTodo(
+    @Body() body: AddTodoDTO,
     @GetUser() { email }: User,
   ): Promise<null> {
     return await this.todoService.setTodo(body, email)
   }
-
 
   @Delete()
   @ResponseMessage(responseEnum.TODO_DELETED)
@@ -67,8 +66,8 @@ export class TodoController {
   @HttpCode(200)
   async deleteUser(
     @GetUser() { email }: User,
-    @Body() { id }: DeleteTodoDTO): Promise<null> {
+    @Body() { id }: DeleteTodoDTO,
+  ): Promise<null> {
     return await this.todoService.deleteTodo(email, id)
   }
-
 }

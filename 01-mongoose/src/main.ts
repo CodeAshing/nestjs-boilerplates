@@ -67,19 +67,15 @@ const logger = new Logger('main')
     .setDescription('Mongoose API Application')
     .setVersion('v1')
     .addTag('Development')
-    .addBearerAuth(
+    .addCookieAuth(
+      'api-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
       {
         type: 'http',
         scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
         in: 'header',
       },
-      'JWT-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
     )
     .build()
-
   const document = SwaggerModule.createDocument(app, config)
 
   SwaggerModule.setup('/v1/swagger', app, document)
