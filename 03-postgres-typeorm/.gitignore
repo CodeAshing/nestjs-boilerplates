@@ -2,7 +2,7 @@
 /dist
 /node_modules
 # .gitignore
-.env
+
 
 # Logs
 logs
