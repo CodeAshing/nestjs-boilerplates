@@ -1,6 +1,3 @@
-
----
-
 # NestJS Boilerplate
 
 This is a powerful NestJS boilerplate for building scalable and enterprise-level applications. It includes robust features such as proper logging mechanisms, JWT-based authentication, token caching, and OpenAPI documentation. You can use this boilerplate as a solid foundation for projects that need to scale to millions of users.
