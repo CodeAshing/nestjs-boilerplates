@@ -10,6 +10,16 @@ body:
       options:
       - label: "I have searched the existing issues"
         required: true
+          
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: "Project Name"
+      description: "Select the project you intend to improve"
+      options:
+        - "Main"
+        - "01-Mongoose"
 
   - type: input
     validations:
@@ -31,17 +41,3 @@ body:
       label: "Describe the performance enhancement you are proposing and how we can try it out"
       placeholder: |
         Cache `array.length` on the following lines ...
-
-  - type: textarea
-    validations:
-     required: true
-    attributes:
-      label: "Benchmarks result or another proof (eg: POC)"
-      description: |
-        If you've already prototyped a solution, share your results here
-        If not, what makes you believe there will be a performance improvement?
-      placeholder: |
-        ```
-        ```
-
-        MacBook Pro Mid 2014, 2.5 GHz Quad-Core Intel Core i7, 16 GB 1600 MHz DDR3, SSD

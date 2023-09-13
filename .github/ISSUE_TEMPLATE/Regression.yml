@@ -17,6 +17,16 @@ body:
 
         ---
 
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: "Project Name"
+      description: "Select the project you intend to improve"
+      options:
+        - "Main"
+        - "01-Mongoose"
+        - 
   - type: checkboxes
     attributes:
       label: "Did you read the migration guide?"
