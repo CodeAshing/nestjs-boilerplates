@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const logger = new Logger();
@@ -11,6 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
+  app.use(helmet());
   dotenv.config();
   app.setGlobalPrefix('api');
 
@@ -28,20 +30,22 @@ async function bootstrap() {
     next();
   });
 
-  const config = new DocumentBuilder()
-    .setTitle('Nest Template API')
-    .setDescription('Reusable NestJS API template')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
     }),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('TypeORM with Postgres Application')
+    .setDescription('Reusable NestJS API template')
+    .setVersion('1.0')
+    .addTag('Development')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('/v1/swagger', app, document);
 
   await app.listen(5000);
 }

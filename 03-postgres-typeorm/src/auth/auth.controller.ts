@@ -11,11 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { ExistingUserDto } from 'src/user/dto/existing-user.dto';
 import { LoginUserDto } from 'src/user/dto/login-user.dto';
+import { JwtDto } from './dto/jwt.dto';
 import { JwtGuard } from './guards/jwt-auth.guard';
+
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
@@ -65,7 +66,7 @@ export class AuthController {
 
   @Post('verify-jwt')
   @HttpCode(HttpStatus.OK)
-  async verifyJwt(@Body() payload: { jwt: string }) {
+  async verifyJwt(@Body() payload: JwtDto) {
     try {
       const user = await this.authService.verifyJwt(payload.jwt);
       return { success: true, data: user };
@@ -74,6 +75,8 @@ export class AuthController {
     }
   }
 
+  // This route is protected by the JwtGuard
+  // To test this route, you must pass a valid JWT in the Authorization header
   @UseGuards(JwtGuard)
   @Get('validateToken')
   testRoute() {
